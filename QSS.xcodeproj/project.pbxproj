@@ -11,6 +11,16 @@
 		2DD6E4E82907FE0300D1AF41 /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2DD6E4E72907FE0300D1AF41 /* ContentView.swift */; };
 		2DD6E4EA2907FE0300D1AF41 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 2DD6E4E92907FE0300D1AF41 /* Assets.xcassets */; };
 		2DD6E4ED2907FE0300D1AF41 /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 2DD6E4EC2907FE0300D1AF41 /* Preview Assets.xcassets */; };
+		2DD6E4F52908025600D1AF41 /* OrderFactory.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2DD6E4F42908025600D1AF41 /* OrderFactory.swift */; };
+		2DD6E4F72908025C00D1AF41 /* Order.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2DD6E4F62908025C00D1AF41 /* Order.swift */; };
+		2DD6E4F92908027B00D1AF41 /* Buffer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2DD6E4F82908027B00D1AF41 /* Buffer.swift */; };
+		2DD6E4FB290802C000D1AF41 /* Processor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2DD6E4FA290802C000D1AF41 /* Processor.swift */; };
+		2DD6E4FD29080DF100D1AF41 /* OrderBin.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2DD6E4FC29080DF100D1AF41 /* OrderBin.swift */; };
+		2DD6E4FF29080F8900D1AF41 /* OrderPackage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2DD6E4FE29080F8900D1AF41 /* OrderPackage.swift */; };
+		2DD6E5032908162600D1AF41 /* DequeModule in Frameworks */ = {isa = PBXBuildFile; productRef = 2DD6E5022908162600D1AF41 /* DequeModule */; };
+		2DD6E5052908164A00D1AF41 /* SimulationPerformer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2DD6E5042908164A00D1AF41 /* SimulationPerformer.swift */; };
+		2DD6E50E2908674400D1AF41 /* Action.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2DD6E50D2908674400D1AF41 /* Action.swift */; };
+		2DD6E5112909D66300D1AF41 /* SwiftPriorityQueue in Frameworks */ = {isa = PBXBuildFile; productRef = 2DD6E5102909D66300D1AF41 /* SwiftPriorityQueue */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -20,6 +30,14 @@
 		2DD6E4E92907FE0300D1AF41 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		2DD6E4EC2907FE0300D1AF41 /* Preview Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Preview Assets.xcassets"; sourceTree = "<group>"; };
 		2DD6E4EE2907FE0300D1AF41 /* QSS.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = QSS.entitlements; sourceTree = "<group>"; };
+		2DD6E4F42908025600D1AF41 /* OrderFactory.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OrderFactory.swift; sourceTree = "<group>"; };
+		2DD6E4F62908025C00D1AF41 /* Order.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Order.swift; sourceTree = "<group>"; };
+		2DD6E4F82908027B00D1AF41 /* Buffer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Buffer.swift; sourceTree = "<group>"; };
+		2DD6E4FA290802C000D1AF41 /* Processor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Processor.swift; sourceTree = "<group>"; };
+		2DD6E4FC29080DF100D1AF41 /* OrderBin.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OrderBin.swift; sourceTree = "<group>"; };
+		2DD6E4FE29080F8900D1AF41 /* OrderPackage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OrderPackage.swift; sourceTree = "<group>"; };
+		2DD6E5042908164A00D1AF41 /* SimulationPerformer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SimulationPerformer.swift; sourceTree = "<group>"; };
+		2DD6E50D2908674400D1AF41 /* Action.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Action.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -27,6 +45,8 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				2DD6E5112909D66300D1AF41 /* SwiftPriorityQueue in Frameworks */,
+				2DD6E5032908162600D1AF41 /* DequeModule in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -54,6 +74,7 @@
 			children = (
 				2DD6E4E52907FE0300D1AF41 /* QSSApp.swift */,
 				2DD6E4E72907FE0300D1AF41 /* ContentView.swift */,
+				2DD6E5002908105900D1AF41 /* Model */,
 				2DD6E4E92907FE0300D1AF41 /* Assets.xcassets */,
 				2DD6E4EE2907FE0300D1AF41 /* QSS.entitlements */,
 				2DD6E4EB2907FE0300D1AF41 /* Preview Content */,
@@ -67,6 +88,29 @@
 				2DD6E4EC2907FE0300D1AF41 /* Preview Assets.xcassets */,
 			);
 			path = "Preview Content";
+			sourceTree = "<group>";
+		};
+		2DD6E5002908105900D1AF41 /* Model */ = {
+			isa = PBXGroup;
+			children = (
+				2DD6E5042908164A00D1AF41 /* SimulationPerformer.swift */,
+				2DD6E50D2908674400D1AF41 /* Action.swift */,
+				2DD6E4FA290802C000D1AF41 /* Processor.swift */,
+				2DD6E4F82908027B00D1AF41 /* Buffer.swift */,
+				2DD6E50A29081EA700D1AF41 /* Order */,
+				2DD6E4FC29080DF100D1AF41 /* OrderBin.swift */,
+			);
+			path = Model;
+			sourceTree = "<group>";
+		};
+		2DD6E50A29081EA700D1AF41 /* Order */ = {
+			isa = PBXGroup;
+			children = (
+				2DD6E4F62908025C00D1AF41 /* Order.swift */,
+				2DD6E4FE29080F8900D1AF41 /* OrderPackage.swift */,
+				2DD6E4F42908025600D1AF41 /* OrderFactory.swift */,
+			);
+			path = Order;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -85,6 +129,10 @@
 			dependencies = (
 			);
 			name = QSS;
+			packageProductDependencies = (
+				2DD6E5022908162600D1AF41 /* DequeModule */,
+				2DD6E5102909D66300D1AF41 /* SwiftPriorityQueue */,
+			);
 			productName = QSS;
 			productReference = 2DD6E4E22907FE0300D1AF41 /* QSS.app */;
 			productType = "com.apple.product-type.application";
@@ -113,6 +161,10 @@
 				Base,
 			);
 			mainGroup = 2DD6E4D92907FE0300D1AF41;
+			packageReferences = (
+				2DD6E5012908162600D1AF41 /* XCRemoteSwiftPackageReference "swift-collections" */,
+				2DD6E50F2909D66300D1AF41 /* XCRemoteSwiftPackageReference "SwiftPriorityQueue" */,
+			);
 			productRefGroup = 2DD6E4E32907FE0300D1AF41 /* Products */;
 			projectDirPath = "";
 			projectRoot = "";
@@ -139,7 +191,15 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				2DD6E4FB290802C000D1AF41 /* Processor.swift in Sources */,
+				2DD6E50E2908674400D1AF41 /* Action.swift in Sources */,
+				2DD6E4F72908025C00D1AF41 /* Order.swift in Sources */,
+				2DD6E4FD29080DF100D1AF41 /* OrderBin.swift in Sources */,
 				2DD6E4E82907FE0300D1AF41 /* ContentView.swift in Sources */,
+				2DD6E4F52908025600D1AF41 /* OrderFactory.swift in Sources */,
+				2DD6E4FF29080F8900D1AF41 /* OrderPackage.swift in Sources */,
+				2DD6E4F92908027B00D1AF41 /* Buffer.swift in Sources */,
+				2DD6E5052908164A00D1AF41 /* SimulationPerformer.swift in Sources */,
 				2DD6E4E62907FE0300D1AF41 /* QSSApp.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -332,6 +392,38 @@
 			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
+
+/* Begin XCRemoteSwiftPackageReference section */
+		2DD6E5012908162600D1AF41 /* XCRemoteSwiftPackageReference "swift-collections" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/apple/swift-collections.git";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 1.0.0;
+			};
+		};
+		2DD6E50F2909D66300D1AF41 /* XCRemoteSwiftPackageReference "SwiftPriorityQueue" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/davecom/SwiftPriorityQueue";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 1.0.0;
+			};
+		};
+/* End XCRemoteSwiftPackageReference section */
+
+/* Begin XCSwiftPackageProductDependency section */
+		2DD6E5022908162600D1AF41 /* DequeModule */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 2DD6E5012908162600D1AF41 /* XCRemoteSwiftPackageReference "swift-collections" */;
+			productName = DequeModule;
+		};
+		2DD6E5102909D66300D1AF41 /* SwiftPriorityQueue */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 2DD6E50F2909D66300D1AF41 /* XCRemoteSwiftPackageReference "SwiftPriorityQueue" */;
+			productName = SwiftPriorityQueue;
+		};
+/* End XCSwiftPackageProductDependency section */
 	};
 	rootObject = 2DD6E4DA2907FE0300D1AF41 /* Project object */;
 }
