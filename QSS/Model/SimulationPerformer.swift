@@ -9,6 +9,27 @@ import DequeModule
 import Foundation
 
 class SimulationPerformer {
+  
+  let defaultPrCount = 5
+  let defaultBfCount = 5
+  // property injection ???
+  
+  init() {
+    var pr = [Processor]()
+    var bf = [Buffer]()
+    
+    for _ in 0 ..< defaultPrCount {
+      pr.append(Processor())
+    }
+    
+    for _ in 0 ..< defaultBfCount {
+      bf.append(Buffer())
+    }
+    
+    self.proccesors = pr
+    self.buffers = bf
+  }
+  
   init(proccesorsCount: Int, buffersCount: Int) {
     
     var pr = [Processor]()
@@ -97,6 +118,10 @@ class SimulationPerformer {
       case .takeOrder(let buf): takeOrder(from: buf)
       case .reject: reject()
     }
+  }
+  
+  func clear() {
+    
   }
   
   private func generateOrder() {
