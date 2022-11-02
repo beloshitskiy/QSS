@@ -2,7 +2,7 @@
 //  Action.swift
 //  QSS
 //
-//  Created by Denis Beloshitskiy on 10/25/22.
+//  Created by Denis Beloshitskiy
 //
 
 import Foundation
