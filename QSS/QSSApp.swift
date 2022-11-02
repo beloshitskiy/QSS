@@ -2,21 +2,16 @@
 //  QSSApp.swift
 //  QSS
 //
-//  Created by Denis Beloshitskiy
+//  Created by Denis Beloshitskiy on 11/2/22.
 //
 
 import SwiftUI
 
 @main
 struct QSSApp: App {
-  @StateObject var appState = AppState()
-
-  var body: some Scene {
-    WindowGroup {
-      ContentView()
+    var body: some Scene {
+        WindowGroup {
+            ContentView()
+        }
     }
-    .commands {
-      Menus()
-    }
-  }
 }

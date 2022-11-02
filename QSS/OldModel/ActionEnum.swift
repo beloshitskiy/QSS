@@ -7,10 +7,10 @@
 
 import Foundation
 
-enum Action {
+enum ActionEnum {
   case generateOrder
   case performOrder(with: Processor)
-  case placeOrder(to: Buffer)
-  case takeOrder(from: Buffer)
+  case placeOrder(to: OldBuffer)
+  case takeOrder(from: OldBuffer)
   case reject
 }

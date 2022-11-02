@@ -8,5 +8,5 @@
 import Foundation
 
 class AppState: ObservableObject {
-  let simulation = SimulationPerformer()
+  let simulation = OldSimulationPerformer()
 }
