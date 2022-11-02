@@ -7,6 +7,6 @@
 
 import Foundation
 
-class Buffer {
+class OldBuffer {
   var isBusy = false
 }

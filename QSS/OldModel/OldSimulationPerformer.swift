@@ -8,7 +8,7 @@
 import DequeModule
 import Foundation
 
-class SimulationPerformer {
+class OldSimulationPerformer {
   
   let defaultPrCount = 5
   let defaultBfCount = 5
@@ -16,14 +16,14 @@ class SimulationPerformer {
   
   init() {
     var pr = [Processor]()
-    var bf = [Buffer]()
+    var bf = [OldBuffer]()
     
     for _ in 0 ..< defaultPrCount {
       pr.append(Processor())
     }
     
     for _ in 0 ..< defaultBfCount {
-      bf.append(Buffer())
+      bf.append(OldBuffer())
     }
     
     self.proccesors = pr
@@ -33,14 +33,14 @@ class SimulationPerformer {
   init(proccesorsCount: Int, buffersCount: Int) {
     
     var pr = [Processor]()
-    var bf = [Buffer]()
+    var bf = [OldBuffer]()
     
     for _ in 0 ..< proccesorsCount {
       pr.append(Processor())
     }
     
     for _ in 0 ..< buffersCount {
-      bf.append(Buffer())
+      bf.append(OldBuffer())
     }
     
     self.proccesors = pr
@@ -51,12 +51,12 @@ class SimulationPerformer {
   
   private var currentCount = 0
  
-  var deque = Deque<Action>()
+  var deque = Deque<ActionEnum>()
   
   private let proccesors: [Processor]
   private var circlePointer = 0
   
-  private let buffers: [Buffer]
+  private let buffers: [OldBuffer]
   
   private let orderBin = OrderBin()
   
@@ -154,12 +154,12 @@ class SimulationPerformer {
     }
   }
   
-  private func placeOrder(to buf: Buffer) {
+  private func placeOrder(to buf: OldBuffer) {
     print("DEBUG - placeOrder")
     buf.isBusy = true
   }
   
-  private func takeOrder(from buf: Buffer) {
+  private func takeOrder(from buf: OldBuffer) {
     print("DEBUG - takeOrder")
     buf.isBusy = false
     
@@ -191,7 +191,7 @@ class SimulationPerformer {
     return nil
   }
   
-  private var optFreeBuffer: Buffer? {
+  private var optFreeBuffer: OldBuffer? {
     guard !buffers.allSatisfy({ $0.isBusy }) else { return nil }
     
     for buf in buffers where !buf.isBusy {
