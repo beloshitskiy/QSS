@@ -2,20 +2,18 @@
 //  Rejector.swift
 //  QSS
 //
-//  Created by Denis Beloshitskiy on 11/2/22.
+//  Created by Denis Beloshitskiy
 //
 
 import Foundation
 
-public class Rejector {
-  var y: Int
+public class Rejector: WaveformConvertible {
+  public let id = UUID()
   
-  init(y: Int) {
-    self.y = y
-    // series
-  }
-  
-  func makeStep(_ x: Double) {
-    // series.add(x, y);
+  // for drawing chart
+  @Published var chartPoints: [Point]
+
+  public init() {
+    chartPoints = [Point(value: 0.0)]
   }
 }

@@ -2,7 +2,7 @@
 //  BufferAction.swift
 //  QSS
 //
-//  Created by Denis Beloshitskiy on 11/2/22.
+//  Created by Denis Beloshitskiy
 //
 
 import Foundation
@@ -16,43 +16,44 @@ public class BufferAction: Action {
   
   private let generator: Generator
   
-  private let helper: ActionHelper
+  private let performer: SimulationPerformer
   
   override public func doAction() -> Action? {
     if buffer.currentGenerator == nil {
       buffer.currentGenerator = generator
-      buffer.startedWaitingTime = timestamp
-      buffer.y += 10
+      buffer.waitingFrom = timestamp
+      buffer.chartHeight += 10
       buffer.makeStep(timestamp)
     } else {
-      buffer.y -= 10
+      buffer.chartHeight -= 10
       buffer.makeStep(timestamp)
-      buffer.y += 10
+      buffer.chartHeight += 10
       buffer.makeStep(timestamp)
       
-      let rejector = helper.rejector
+      let rejector = performer.rejector
       generator.rejectedRequests += 1
-      generator.waitingTimes.append(timestamp - buffer.startedWaitingTime)
-      helper.rejectedRequestsCount += 1
+      generator.inBufferTimes.append(timestamp - buffer.waitingFrom)
+      performer.rejectedRequestsCount += 1
       buffer.currentGenerator = generator
-      buffer.startedWaitingTime = timestamp
-      rejector.y += 10
+      buffer.waitingFrom = timestamp
+      rejector.chartHeight += 10
       rejector.makeStep(timestamp)
-      rejector.y -= 10
+      rejector.chartHeight -= 10
       rejector.makeStep(timestamp)
     }
     return nil
   }
   
-  public init(_ timestamp: Double, _ buffer: Buffer, _ generator: Generator, _ helper: ActionHelper) {
+  public init(_ timestamp: Double, _ buffer: Buffer, _ generator: Generator, _ helper: SimulationPerformer) {
     self.timestamp = timestamp
     self.buffer = buffer
     self.generator = generator
-    self.helper = helper
+    self.performer = helper
     
     super.init()
   }
   
+  // Comparable conformance
   public static func < (lhs: BufferAction, rhs: BufferAction) -> Bool {
     lhs.timestamp < rhs.timestamp
   }

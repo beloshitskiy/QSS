@@ -2,40 +2,39 @@
 //  Generator.swift
 //  QSS
 //
-//  Created by Denis Beloshitskiy on 11/2/22.
+//  Created by Denis Beloshitskiy
 //
 
 import Foundation
 
-public class Generator {
-  var y: Double
+public class Generator: WaveformConvertible {
+  public let id = UUID()
   
-  // series
-  
-  var amountOfActions: Int
-  var rejectedRequests: Int
-  var acceptedRequests: Int
+  var remainingActions: Int
   var lastActionTimestamp: Double
-  var lastCheckedHandlerNum: Int
   
-  var waitingTimes: [Double]
+  var circlePointer: Int
+  
+  var isEmpty: Bool { remainingActions == 0 }
+  
+  // for drawing chart
+  @Published var chartPoints: [Point]
+  
+  // for statistics
+  var acceptedRequests: Int
+  var rejectedRequests: Int
+  
+  var inBufferTimes: [Double]
   var handlingTimes: [Double]
   
-  public init(y: Double, i: Int) {
-    self.y = y
-    // series
-    amountOfActions = 0
+  public init() {
+    remainingActions = 0
     lastActionTimestamp = 0
-    lastCheckedHandlerNum = 0
+    circlePointer = 0
     rejectedRequests = 0
     acceptedRequests = 0
-    waitingTimes = [Double]()
+    inBufferTimes = [Double]()
     handlingTimes = [Double]()
+    chartPoints = [Point(value: 0.0)]
   }
-  
-  func makeStep(_ x: Double) {
-    // series.add(x, y);
-  }
-  
-  var isActionless: Bool { amountOfActions == 0 }
 }
