@@ -13,6 +13,12 @@ extension Double {
   }
 }
 
+extension Int {
+  static func generateTimeForAction() -> Int {
+    Int.random(in: 0 ... 5)
+  }
+}
+
 extension [Double] {
   var average: Double {
     self.reduce(0, +) / Double(self.count)

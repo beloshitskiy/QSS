@@ -9,54 +9,54 @@ import SwiftUI
 
 struct ControlView: View {
   @EnvironmentObject var appState: AppState
-  let mode: Mode
-  @State private var num = 1
-  @State private var isStarted = false
+//  @State private var ordersCount = 0
 
   var body: some View {
     VStack {
       HStack {
         Text("Number of orders:")
-        TextField("", value: $num, format: .number)
+        TextField("", value: $appState.ordersCount, format: .number)
           .textFieldStyle(.roundedBorder)
           .frame(width: 75)
       }
 
-      switch mode {
+      switch appState.appMode {
         case .auto:
           Button {
-            if !isStarted {
-              appState.simulation.start()
-              isStarted = true
+            if !appState.isStarted {
+              appState.simulation.startAuto()
+              appState.isStarted = true
             } else {
-              appState.simulation.clear()
-              isStarted = false
+              appState.simulation.reset()
+              appState.isStarted = false
             }
           } label: {
-            Text("Start")
+            Text(!appState.isStarted ? "Start" : "Reset")
           }.buttonStyle(.bordered)
 
         case .manual:
           HStack {
             Button {
-              if !isStarted {
-                appState.simulation.stepStart()
-                isStarted = true
+              if !appState.isStarted {
+                appState.simulation.startManual()
+                appState.isStarted = true
               } else {
-                appState.simulation.clear()
-                isStarted = false
+                appState.simulation.reset()
+                appState.isStarted = false
               }
             } label: {
-              Text(!isStarted ? "Start" : "Clear")
+              Text(!appState.isStarted ? "Start" : "Reset")
             }.buttonStyle(.bordered)
 
             Button {
-              appState.simulation.step()
+              appState.simulation.performStep()
             } label: {
               Text("Step")
-            }.disabled(!isStarted)
+            }.disabled(!appState.isStarted)
               .buttonStyle(.bordered)
           }
+
+        default: EmptyView()
       }
     }
     .padding()
@@ -66,10 +66,8 @@ struct ControlView: View {
 struct ControlView_Previews: PreviewProvider {
   static var previews: some View {
     Group {
-      ControlView(mode: .auto)
-        .environmentObject(AppState())
-      ControlView(mode: .manual)
-        .environmentObject(AppState())
-    }
+      ControlView()
+      ControlView()
+    }.environmentObject(AppState())
   }
 }

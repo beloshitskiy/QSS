@@ -18,42 +18,23 @@ public class GeneratorAction: Action {
   
   override public func doAction() -> Action? {
     generator.remainingActions -= 1
-    generator.chartHeight += 10
-    generator.makeStep(timestamp)
-    generator.chartHeight -= 10
-    generator.makeStep(timestamp)
-    
+    generator.makeStep(.tick)
+
     if let handler = optHandler {
       handler.isBusy = true
-      handler.chartHeight += 10
-      handler.makeStep(timestamp)
+      handler.makeStep(.up)
+
       let time = timestamp + Double.generateTimeForAction()
       handler.usageTime = handler.usageTime + time - timestamp
-      generator.acceptedRequests += 1
+      generator.acceptedOrders += 1
       generator.handlingTimes.append(time - timestamp)
       
       return HandlerAction(time, handler, generator, performer)
     }
     
-    var target: Buffer?
-    for buffer in performer.buffers {
-      if buffer.currentGenerator == nil {
-        target = buffer
-        break
-      }
-      
-      if buffer.isNewest {
-        target = buffer
-      }
-    }
     
-    for buffer in performer.buffers {
-      buffer.isNewest = false
-    }
-    
-    if let target {
-      target.isNewest = true
-      return BufferAction(timestamp, target, generator, performer)
+    if let buffer = optFreeBuffer {
+      return BufferAction(timestamp, buffer, generator, performer)
     }
     
     return nil
@@ -65,6 +46,18 @@ public class GeneratorAction: Action {
     self.performer = helper
     
     super.init()
+  }
+  
+  private var optFreeBuffer: Buffer? {
+    guard !performer.buffers.allSatisfy({ $0.isBusy }) else {
+      return nil
+    }
+
+    for buf in performer.buffers where !buf.isBusy {
+      return buf
+    }
+
+    return nil
   }
   
   // choosing handler for order

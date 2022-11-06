@@ -8,15 +8,15 @@
 import SwiftUI
 
 struct ContentView: View {
-  @State private var currentMode: Mode? = .auto
+  @EnvironmentObject var appState: AppState
 
   var body: some View {
     NavigationView {
-      SidebarView(mode: $currentMode)
-      switch currentMode {
+      SidebarView()
+      switch appState.appMode {
         case .auto: TableView()
-        case .manual: WaveformView()
-        case nil: Text("Choose mode").font(.largeTitle)
+        case .manual: ScrollView { WaveformsView() }
+        default: Text("Choose mode").font(.largeTitle)
       }
     }
     .frame(
@@ -33,7 +33,7 @@ struct ContentView: View {
   }
 
   private var windowTitle: String {
-    if let currentMode = currentMode {
+    if let currentMode = appState.appMode {
       return "QSS - \(currentMode.rawValue)"
     }
     return "QSS"
@@ -43,5 +43,6 @@ struct ContentView: View {
 struct ContentView_Previews: PreviewProvider {
   static var previews: some View {
     ContentView()
+      .environmentObject(AppState())
   }
 }
