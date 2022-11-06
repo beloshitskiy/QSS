@@ -5,6 +5,7 @@ Objective-C.gitignore & Swift.gitignore
 
 *.DS_Store
 .idea/
+Preview Content/
 
 ## User settings
 xcuserdata/
