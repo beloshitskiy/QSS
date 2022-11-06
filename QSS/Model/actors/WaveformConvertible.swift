@@ -10,21 +10,35 @@ import SwiftUICharts
 
 public typealias Point = LineChartDataPoint
 
+public enum StepType: CaseIterable {
+  case straight
+  case up
+  case down
+  case tick
+  case rejectorTick
+}
+
 protocol WaveformConvertible: ObservableObject, Identifiable {
   var chartPoints: [Point] { get set }
 
-  func makeStep()
+  func makeStep(_ step: StepType)
 }
 
 extension WaveformConvertible {
-  public func makeStep() {
-    let lastPoints = chartPoints.suffix(2)
-    guard lastPoints.count > 1 else {
-      chartPoints.append(Point(value: 0.0))
-      return
+  public func makeStep(_ step: StepType = .straight) {
+    let up = Point(value: 2.0)
+    let down = Point(value: 0.0)
+    guard let lastPoint = chartPoints.last else { return }
+    let newPoints: [Point]
+    switch step {
+      case .straight:
+      let newPoint = lastPoint.value == up.value ? up : down
+        newPoints = [newPoint, newPoint]
+      case .up: newPoints = [down, up]
+      case .down: newPoints = [up, down]
+      case .tick: newPoints = [down, up, up, down]
+      case .rejectorTick: newPoints = [up, up, down]
     }
-
-    let newPoint = Point(value: chartPoints.allSatisfy { $0.value == 1 } ? 0 : 1)
-    chartPoints.append(newPoint)
+    chartPoints.append(contentsOf: newPoints)
   }
 }

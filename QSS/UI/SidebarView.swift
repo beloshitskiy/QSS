@@ -7,16 +7,11 @@
 
 import SwiftUI
 
-enum Mode: String, CaseIterable {
-  case auto = "Auto"
-  case manual = "Manual"
-}
-
 struct SidebarView: View {
-  @Binding var mode: Mode?
+  @EnvironmentObject var appState: AppState
 
   var body: some View {
-    List(selection: $mode) {
+    List(selection: $appState.appMode) {
       Section {
         ForEach(Mode.allCases, id: \.self) {
           Text($0.rawValue)
@@ -31,7 +26,8 @@ struct SidebarView: View {
 
 struct SidebarView_Previews: PreviewProvider {
   static var previews: some View {
-    SidebarView(mode: .constant(.auto))
+    SidebarView()
+      .environmentObject(AppState())
       .preferredColorScheme(.dark)
       .frame(width: 200)
   }

@@ -19,36 +19,30 @@ public class BufferAction: Action {
   private let performer: SimulationPerformer
   
   override public func doAction() -> Action? {
-    if buffer.currentGenerator == nil {
+    if buffer.isBusy {
       buffer.currentGenerator = generator
       buffer.waitingFrom = timestamp
-      buffer.chartHeight += 10
-      buffer.makeStep(timestamp)
+      buffer.makeStep(.up)
     } else {
-      buffer.chartHeight -= 10
-      buffer.makeStep(timestamp)
-      buffer.chartHeight += 10
-      buffer.makeStep(timestamp)
-      
+      buffer.makeStep(.down)
+//      buffer.makeStep(.up)
+
       let rejector = performer.rejector
       generator.rejectedRequests += 1
       generator.inBufferTimes.append(timestamp - buffer.waitingFrom)
       performer.rejectedRequestsCount += 1
       buffer.currentGenerator = generator
       buffer.waitingFrom = timestamp
-      rejector.chartHeight += 10
-      rejector.makeStep(timestamp)
-      rejector.chartHeight -= 10
-      rejector.makeStep(timestamp)
+      rejector.makeStep(.rejectorTick)
     }
     return nil
   }
   
-  public init(_ timestamp: Double, _ buffer: Buffer, _ generator: Generator, _ helper: SimulationPerformer) {
+  public init(_ timestamp: Double, _ buffer: Buffer, _ generator: Generator, _ performer: SimulationPerformer) {
     self.timestamp = timestamp
     self.buffer = buffer
     self.generator = generator
-    self.performer = helper
+    self.performer = performer
     
     super.init()
   }

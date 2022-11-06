@@ -7,55 +7,49 @@
 
 import SwiftUI
 
-struct OrderContent: Identifiable {
-  let id = UUID()
+public struct OrderContent: Identifiable {
+  public let id = UUID()
 
   let generator: Int
-  let ordersCount: Int
-  let avProcessingTime: Double
-  let avInBufferTime: Double
-  let rejectCount: Int
+  var totalOrdersCount: Int
+  var avProcessingTime: Double
+  var avInBufferTime: Double
+  var rejectCount: Int
 
-  var rejectPercent: Double { Double(rejectCount) / Double(ordersCount) }
+  var rejectPercent: Double { Double(rejectCount) / Double(totalOrdersCount) }
 }
 
 struct TableView: View {
-  var orderContents: [OrderContent] = [OrderContent(generator: 0,
-                                                    ordersCount: 100,
-                                                    avProcessingTime: 23.5,
-                                                    avInBufferTime: 0.4,
-                                                    rejectCount: 15)]
+  @EnvironmentObject var appState: AppState
+
   var body: some View {
     VStack {
-      Table(orderContents) {
-        TableColumn("Generators") { content in
-          Text("№\(content.generator + 1)")
+      Table(appState.simulation.tableResults) {
+        TableColumn("Generators") {
+          Text("№\($0.generator + 1)")
         }
-        TableColumn("Orders") { content in
-          Text(content.ordersCount, format: .number)
+        TableColumn("Orders") {
+          Text($0.totalOrdersCount, format: .number)
         }
-        TableColumn("Processing time (average)") { content in
-          Text(content.avProcessingTime, format: .number)
+        TableColumn("Processing time (average)") {
+          Text("\($0.avProcessingTime)")
         }
-        TableColumn("In-buffer time (average)") { content in
-          Text(content.avInBufferTime, format: .number)
+        TableColumn("In-buffer time (average)") {
+          Text("\($0.avInBufferTime)")
         }
-        TableColumn("Reject %") { content in
-          Text(content.rejectPercent, format: .number)
+        TableColumn("Reject %") {
+          Text($0.rejectPercent, format: .number)
         }
       }
-      
-      ControlView(mode: .auto)
+
+      ControlView()
     }
   }
 }
 
 struct TableView_Previews: PreviewProvider {
   static var previews: some View {
-    TableView(orderContents: [OrderContent(generator: 0,
-                                           ordersCount: 100,
-                                           avProcessingTime: 23.5,
-                                           avInBufferTime: 0.4,
-                                           rejectCount: 15)])
+    TableView()
+      .environmentObject(AppState())
   }
 }
