@@ -2,31 +2,24 @@
 //  Handler.swift
 //  QSS
 //
-//  Created by Denis Beloshitskiy on 11/2/22.
+//  Created by Denis Beloshitskiy
 //
 
 import Foundation
 
-public class Handler {
-  var y: Int
+public class Handler: WaveformConvertible {
+  public let id = UUID()
   
-  // series
-  
-  public var isOccupied: Bool
-  
-  public var lastCheckedBufferNum: Int
+  public var isBusy: Bool
   
   public var usageTime: Double
   
-  public init(y: Int, i: Int) {
-    self.y = y
-    // series
-    isOccupied = false
-    lastCheckedBufferNum = 0
-    usageTime = 0
-  }
+  // for drawing chart
+  @Published var chartPoints: [Point]
   
-  func makeStep(_ x: Double) {
-    // series.add(x, y);
+  public init() {
+    isBusy = false
+    usageTime = 0
+    chartPoints = [Point(value: 0.0)]
   }
 }

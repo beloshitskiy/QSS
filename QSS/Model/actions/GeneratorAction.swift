@@ -2,7 +2,7 @@
 //  GeneratorAction.swift
 //  QSS
 //
-//  Created by Denis Beloshitskiy on 11/2/22.
+//  Created by Denis Beloshitskiy
 //
 
 import Foundation
@@ -14,31 +14,29 @@ public class GeneratorAction: Action {
   
   private let generator: Generator
   
-  private let helper: ActionHelper
+  private let performer: SimulationPerformer
   
   override public func doAction() -> Action? {
-    generator.amountOfActions -= 1
-    generator.y += 10
-    generator.makeStep(timestamp);
-    generator.y -= 10
-    generator.makeStep(timestamp);
+    generator.remainingActions -= 1
+    generator.chartHeight += 10
+    generator.makeStep(timestamp)
+    generator.chartHeight -= 10
+    generator.makeStep(timestamp)
     
     if let handler = optHandler {
-      handler.isOccupied = true
-      handler.y += 10
+      handler.isBusy = true
+      handler.chartHeight += 10
       handler.makeStep(timestamp)
-      let time = timestamp + MathUtils.generateTimeForAction()
+      let time = timestamp + Double.generateTimeForAction()
       handler.usageTime = handler.usageTime + time - timestamp
       generator.acceptedRequests += 1
       generator.handlingTimes.append(time - timestamp)
       
-      return HandlerAction(timestamp: time, handler: handler,
-                           generator: generator, helper: helper)
+      return HandlerAction(time, handler, generator, performer)
     }
     
-    
-    var target: Buffer? = nil
-    for buffer in helper.buffers {
+    var target: Buffer?
+    for buffer in performer.buffers {
       if buffer.currentGenerator == nil {
         target = buffer
         break
@@ -49,44 +47,45 @@ public class GeneratorAction: Action {
       }
     }
     
-    for buffer in helper.buffers {
+    for buffer in performer.buffers {
       buffer.isNewest = false
     }
     
     if let target {
       target.isNewest = true
-      return BufferAction(timestamp: timestamp, buffer: target,
-                          generator: generator, helper: helper)
+      return BufferAction(timestamp, target, generator, performer)
     }
     
     return nil
   }
   
-  private var optHandler: Handler? {
-    let handlers = helper.handlers
-    guard !handlers.allSatisfy({ $0.isOccupied }) else { return nil }
-  
-    for i in generator.lastCheckedHandlerNum ..< handlers.count where !handlers[i].isOccupied {
-      generator.lastCheckedHandlerNum = i
-      return handlers[i]
-    }
-  
-    for i in 0 ..< handlers.count where !handlers[i].isOccupied {
-      generator.lastCheckedHandlerNum = i
-      return handlers[i]
-    }
-  
-    return nil
-  }
-  
-  public init(_ timestamp: Double, _ generator: Generator, _ helper: ActionHelper) {
+  public init(_ timestamp: Double, _ generator: Generator, _ helper: SimulationPerformer) {
     self.timestamp = timestamp
     self.generator = generator
-    self.helper = helper
+    self.performer = helper
     
     super.init()
   }
   
+  // choosing handler for order
+  private var optHandler: Handler? {
+    let handlers = performer.handlers
+    guard !handlers.allSatisfy({ $0.isBusy }) else { return nil }
+  
+    for i in generator.circlePointer ..< handlers.count where !handlers[i].isBusy {
+      generator.circlePointer = i
+      return handlers[i]
+    }
+  
+    for i in 0 ..< handlers.count where !handlers[i].isBusy {
+      generator.circlePointer = i
+      return handlers[i]
+    }
+  
+    return nil
+  }
+  
+  // Comparable conformance
   public static func < (lhs: GeneratorAction, rhs: GeneratorAction) -> Bool {
     lhs.timestamp < rhs.timestamp
   }

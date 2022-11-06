@@ -2,7 +2,7 @@
 //  HandlerAction.swift
 //  QSS
 //
-//  Created by Denis Beloshitskiy on 11/2/22.
+//  Created by Denis Beloshitskiy
 //
 
 import Foundation
@@ -14,27 +14,26 @@ public class HandlerAction: Action {
   
   private let handler: Handler
   private let generator: Generator
-  private let helper: ActionHelper
+  private let performer: SimulationPerformer
   
   override public func doAction() -> Action? {
-    handler.isOccupied = false
-    handler.y -= 10
+    handler.isBusy = false
+    handler.chartHeight -= 10
     handler.makeStep(timestamp)
     if let buffer = optFreeBuffer {
-      handler.isOccupied = true
-      handler.y += 10
+      handler.isBusy = true
+      handler.chartHeight += 10
       handler.makeStep(timestamp)
       if let generator = buffer.currentGenerator {
         buffer.currentGenerator = nil
-        buffer.y -= 10
+        buffer.chartHeight -= 10
         buffer.makeStep(timestamp)
-        let time = timestamp + MathUtils.generateTimeForAction()
+        let time = timestamp + Double.generateTimeForAction()
         handler.usageTime = handler.usageTime + time - timestamp
         generator.acceptedRequests += 1
-        generator.waitingTimes.append(timestamp - buffer.startedWaitingTime)
+        generator.inBufferTimes.append(timestamp - buffer.waitingFrom)
         generator.handlingTimes.append(time - timestamp)
-        return HandlerAction(timestamp: time, handler: handler,
-                             generator: generator, helper: helper)
+        return HandlerAction(time, handler, generator, performer)
       }
     }
     
@@ -42,24 +41,25 @@ public class HandlerAction: Action {
   }
   
   private var optFreeBuffer: Buffer? {
-    guard !helper.buffers.allSatisfy({ $0.isBusy }) else { return nil }
+    guard !performer.buffers.allSatisfy({ $0.isBusy }) else { return nil }
   
-    for buf in helper.buffers where !buf.isBusy {
+    for buf in performer.buffers where !buf.isBusy {
       return buf
     }
   
     return nil
   }
   
-  public init(_ timestamp: Double, _ handler: Handler, _ generator: Generator, _ helper: ActionHelper) {
+  public init(_ timestamp: Double, _ handler: Handler, _ generator: Generator, _ helper: SimulationPerformer) {
     self.timestamp = timestamp
     self.handler = handler
     self.generator = generator
-    self.helper = helper
+    self.performer = helper
     
     super.init()
   }
   
+  // Comparable conformance
   public static func < (lhs: HandlerAction, rhs: HandlerAction) -> Bool {
     lhs.timestamp < rhs.timestamp
   }

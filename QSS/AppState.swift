@@ -7,6 +7,12 @@
 
 import Foundation
 
+enum Mode: String, CaseIterable {
+  case auto = "Auto"
+  case manual = "Manual"
+}
+
 class AppState: ObservableObject {
-  let simulation = OldSimulationPerformer()
+  @Published var simulation = SimulationPerformer()
+  @Published var appMode: Mode? = .auto
 }
