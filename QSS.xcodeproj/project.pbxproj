@@ -28,12 +28,10 @@
 		2D43852D2912FE5000267EB9 /* Double+Maths.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2D43852C2912FE5000267EB9 /* Double+Maths.swift */; };
 		2D4385322913DE6400267EB9 /* SwiftUICharts in Frameworks */ = {isa = PBXBuildFile; productRef = 2D4385312913DE6400267EB9 /* SwiftUICharts */; };
 		2D43853729167F2400267EB9 /* WaveformView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2D43853629167F2400267EB9 /* WaveformView.swift */; };
-		2D4385392916A13E00267EB9 /* LineChartDemoView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2D4385382916A13E00267EB9 /* LineChartDemoView.swift */; };
 		2D43853D2917E33F00267EB9 /* WaveformConvertible.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2D43853C2917E33F00267EB9 /* WaveformConvertible.swift */; };
 		2DD6E4E62907FE0300D1AF41 /* QSSApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2DD6E4E52907FE0300D1AF41 /* QSSApp.swift */; };
 		2DD6E4EA2907FE0300D1AF41 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 2DD6E4E92907FE0300D1AF41 /* Assets.xcassets */; };
 		2DD6E4ED2907FE0300D1AF41 /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 2DD6E4EC2907FE0300D1AF41 /* Preview Assets.xcassets */; };
-		2DD6E5032908162600D1AF41 /* DequeModule in Frameworks */ = {isa = PBXBuildFile; productRef = 2DD6E5022908162600D1AF41 /* DequeModule */; };
 		2DD6E5112909D66300D1AF41 /* SwiftPriorityQueue in Frameworks */ = {isa = PBXBuildFile; productRef = 2DD6E5102909D66300D1AF41 /* SwiftPriorityQueue */; };
 /* End PBXBuildFile section */
 
@@ -58,7 +56,6 @@
 		2D4385272912FE2200267EB9 /* Rejector.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Rejector.swift; sourceTree = "<group>"; };
 		2D43852C2912FE5000267EB9 /* Double+Maths.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "Double+Maths.swift"; sourceTree = "<group>"; };
 		2D43853629167F2400267EB9 /* WaveformView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WaveformView.swift; sourceTree = "<group>"; };
-		2D4385382916A13E00267EB9 /* LineChartDemoView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LineChartDemoView.swift; sourceTree = "<group>"; };
 		2D43853C2917E33F00267EB9 /* WaveformConvertible.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WaveformConvertible.swift; sourceTree = "<group>"; };
 		2DD6E4E22907FE0300D1AF41 /* QSS.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = QSS.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		2DD6E4E52907FE0300D1AF41 /* QSSApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = QSSApp.swift; sourceTree = "<group>"; };
@@ -74,7 +71,6 @@
 			files = (
 				2D4385322913DE6400267EB9 /* SwiftUICharts in Frameworks */,
 				2DD6E5112909D66300D1AF41 /* SwiftPriorityQueue in Frameworks */,
-				2DD6E5032908162600D1AF41 /* DequeModule in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -147,7 +143,6 @@
 		2DD6E4E42907FE0300D1AF41 /* QSS */ = {
 			isa = PBXGroup;
 			children = (
-				2D4385382916A13E00267EB9 /* LineChartDemoView.swift */,
 				2DD6E4E52907FE0300D1AF41 /* QSSApp.swift */,
 				2D06CABD290BD92400B33482 /* AppState.swift */,
 				2D4385172912FDD700267EB9 /* SimulationPerformer.swift */,
@@ -187,7 +182,6 @@
 			);
 			name = QSS;
 			packageProductDependencies = (
-				2DD6E5022908162600D1AF41 /* DequeModule */,
 				2DD6E5102909D66300D1AF41 /* SwiftPriorityQueue */,
 				2D4385312913DE6400267EB9 /* SwiftUICharts */,
 			);
@@ -203,7 +197,7 @@
 			attributes = {
 				BuildIndependentTargetsInParallel = 1;
 				LastSwiftUpdateCheck = 1400;
-				LastUpgradeCheck = 1400;
+				LastUpgradeCheck = 1410;
 				TargetAttributes = {
 					2DD6E4E12907FE0300D1AF41 = {
 						CreatedOnToolsVersion = 14.0.1;
@@ -220,7 +214,6 @@
 			);
 			mainGroup = 2DD6E4D92907FE0300D1AF41;
 			packageReferences = (
-				2DD6E5012908162600D1AF41 /* XCRemoteSwiftPackageReference "swift-collections" */,
 				2DD6E50F2909D66300D1AF41 /* XCRemoteSwiftPackageReference "SwiftPriorityQueue" */,
 				2D4385302913DE6400267EB9 /* XCRemoteSwiftPackageReference "SwiftUICharts" */,
 			);
@@ -266,7 +259,6 @@
 				2D06CAC2290BDE4B00B33482 /* Toolbar.swift in Sources */,
 				2D09AB68290BD20000B3C11E /* SidebarView.swift in Sources */,
 				2D4385282912FE2200267EB9 /* Buffer.swift in Sources */,
-				2D4385392916A13E00267EB9 /* LineChartDemoView.swift in Sources */,
 				2D43852D2912FE5000267EB9 /* Double+Maths.swift in Sources */,
 				2D06CAC8290C63D800B33482 /* ControlView.swift in Sources */,
 				2D43851F2912FE1D00267EB9 /* HandlerAction.swift in Sources */,
@@ -312,6 +304,7 @@
 				CLANG_WARN_UNREACHABLE_CODE = YES;
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
 				COPY_PHASE_STRIP = NO;
+				DEAD_CODE_STRIPPING = YES;
 				DEBUG_INFORMATION_FORMAT = dwarf;
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
 				ENABLE_TESTABILITY = YES;
@@ -329,7 +322,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				MACOSX_DEPLOYMENT_TARGET = 12.3;
+				MACOSX_DEPLOYMENT_TARGET = 13.0;
 				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
 				MTL_FAST_MATH = YES;
 				ONLY_ACTIVE_ARCH = YES;
@@ -372,6 +365,7 @@
 				CLANG_WARN_UNREACHABLE_CODE = YES;
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
 				COPY_PHASE_STRIP = NO;
+				DEAD_CODE_STRIPPING = YES;
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
 				ENABLE_NS_ASSERTIONS = NO;
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
@@ -383,7 +377,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				MACOSX_DEPLOYMENT_TARGET = 12.3;
+				MACOSX_DEPLOYMENT_TARGET = 13.0;
 				MTL_ENABLE_DEBUG_INFO = NO;
 				MTL_FAST_MATH = YES;
 				SDKROOT = macosx;
@@ -399,9 +393,11 @@
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				ASSETCATALOG_COMPILER_INCLUDE_ALL_APPICON_ASSETS = YES;
 				CODE_SIGN_ENTITLEMENTS = QSS/QSS.entitlements;
+				CODE_SIGN_IDENTITY = "-";
 				CODE_SIGN_STYLE = Automatic;
 				COMBINE_HIDPI_IMAGES = YES;
 				CURRENT_PROJECT_VERSION = 1;
+				DEAD_CODE_STRIPPING = YES;
 				DEVELOPMENT_ASSET_PATHS = "\"QSS/Preview Content\"";
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
@@ -411,6 +407,7 @@
 					"$(inherited)",
 					"@executable_path/../Frameworks",
 				);
+				MACOSX_DEPLOYMENT_TARGET = 13.0;
 				MARKETING_VERSION = 1.0;
 				PRODUCT_BUNDLE_IDENTIFIER = com.meinkognito.QSS;
 				PRODUCT_NAME = "$(TARGET_NAME)";
@@ -426,9 +423,11 @@
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				ASSETCATALOG_COMPILER_INCLUDE_ALL_APPICON_ASSETS = YES;
 				CODE_SIGN_ENTITLEMENTS = QSS/QSS.entitlements;
+				CODE_SIGN_IDENTITY = "-";
 				CODE_SIGN_STYLE = Automatic;
 				COMBINE_HIDPI_IMAGES = YES;
 				CURRENT_PROJECT_VERSION = 1;
+				DEAD_CODE_STRIPPING = YES;
 				DEVELOPMENT_ASSET_PATHS = "\"QSS/Preview Content\"";
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
@@ -438,6 +437,7 @@
 					"$(inherited)",
 					"@executable_path/../Frameworks",
 				);
+				MACOSX_DEPLOYMENT_TARGET = 13.0;
 				MARKETING_VERSION = 1.0;
 				PRODUCT_BUNDLE_IDENTIFIER = com.meinkognito.QSS;
 				PRODUCT_NAME = "$(TARGET_NAME)";
@@ -478,14 +478,6 @@
 				kind = branch;
 			};
 		};
-		2DD6E5012908162600D1AF41 /* XCRemoteSwiftPackageReference "swift-collections" */ = {
-			isa = XCRemoteSwiftPackageReference;
-			repositoryURL = "https://github.com/apple/swift-collections.git";
-			requirement = {
-				kind = upToNextMajorVersion;
-				minimumVersion = 1.0.0;
-			};
-		};
 		2DD6E50F2909D66300D1AF41 /* XCRemoteSwiftPackageReference "SwiftPriorityQueue" */ = {
 			isa = XCRemoteSwiftPackageReference;
 			repositoryURL = "https://github.com/davecom/SwiftPriorityQueue";
@@ -501,11 +493,6 @@
 			isa = XCSwiftPackageProductDependency;
 			package = 2D4385302913DE6400267EB9 /* XCRemoteSwiftPackageReference "SwiftUICharts" */;
 			productName = SwiftUICharts;
-		};
-		2DD6E5022908162600D1AF41 /* DequeModule */ = {
-			isa = XCSwiftPackageProductDependency;
-			package = 2DD6E5012908162600D1AF41 /* XCRemoteSwiftPackageReference "swift-collections" */;
-			productName = DequeModule;
 		};
 		2DD6E5102909D66300D1AF41 /* SwiftPriorityQueue */ = {
 			isa = XCSwiftPackageProductDependency;
