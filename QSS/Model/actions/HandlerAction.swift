@@ -18,12 +18,18 @@ public class HandlerAction: Action {
 
   override public func doAction() -> Action? {
     handler.isBusy = false
-    handler.makeStep(performer, actor: .handler, .down, stepWidth: timestamp)
+    handler.makeStep(.down, stepWidth: timestamp)
+    handler.makeStep(stepWidth: timestamp)
     if let buffer = optBusyBuffer {
       handler.isBusy = true
-      handler.makeStep(performer, actor: .handler, .tick, stepWidth: timestamp)
+      handler.makeStep(.up, stepWidth: timestamp)
+      handler.makeStep(stepWidth: timestamp)
       if let generator = buffer.currentGenerator {
         buffer.currentGenerator = nil
+
+        buffer.makeStep(.down, stepWidth: timestamp)
+        buffer.makeStep(stepWidth: timestamp)
+
         let time = timestamp + Double.generateTimeForAction()
         handler.usageTime = handler.usageTime + time - timestamp
         generator.acceptedOrders += 1
