@@ -35,7 +35,7 @@ struct WaveformView: View {
     VStack {
       Chart(appState.simulation.chartData) {
         LineMark($0.coordinates)
-          .foregroundStyle(by: .value("Actor type", $0.actor))
+          .foregroundStyle(by: .value("Actor", $0.actor))
       }
       ControlView()
     }

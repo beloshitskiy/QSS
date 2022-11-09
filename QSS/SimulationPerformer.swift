@@ -46,30 +46,55 @@ public class SimulationPerformer: ObservableObject {
   @Published var tableResults: [OrderContent]
 
   // data for WaveformsView
-  @Published var chartData: [WaveformPoint]
+  var chartData: [WaveformPoint] {
+    var data = [WaveformPoint]()
+    
+    generators.forEach { data.append(contentsOf: $0.chartData) }
+    buffers.forEach { data.append(contentsOf: $0.chartData) }
+    handlers.forEach { data.append(contentsOf: $0.chartData) }
+    data.append(contentsOf: rejector.chartData)
+    
+    return data
+  }
 
   // for timestamp graph
   var step: Double
 
   // MARK: - Inits
 
-  public init(actions: PriorityQueue<Action> = PriorityQueue<Action>(ascending: true), actorsCount: Int = 1) {
+  public init(actions: PriorityQueue<Action> = PriorityQueue<Action>(ascending: true), actorsCount: Int = 3) {
     self.actions = actions
     ordersCount = 0
+
+    var baseLine = 0.0
+    let inset = 5.0
 
     self.actorsCount = actorsCount
     var generators = [Generator]()
     var handlers = [Handler]()
     var buffers = [Buffer]()
 
-    for _ in 0 ..< actorsCount {
-      let gen = Generator()
-      let han = Handler()
-      let buf = Buffer()
+    step = 0
 
-      generators.append(gen)
-      handlers.append(han)
+    for _ in 0 ..< actorsCount {
+      baseLine += inset
+      let buf = Buffer(baseLine: baseLine)
       buffers.append(buf)
+      buf.makeStep(stepWidth: step)
+    }
+
+    for _ in 0 ..< actorsCount {
+      baseLine += inset
+      let han = Handler(baseLine: baseLine)
+      handlers.append(han)
+      han.makeStep(stepWidth: step)
+    }
+
+    for _ in 0 ..< actorsCount {
+      baseLine += inset
+      let gen = Generator(baseLine: baseLine)
+      generators.append(gen)
+      gen.makeStep(stepWidth: step)
     }
 
     self.generators = generators
@@ -77,10 +102,9 @@ public class SimulationPerformer: ObservableObject {
     self.buffers = buffers
     rejector = Rejector()
 
-    step = 0
     totalRequestsCount = 0
     tableResults = []
-    chartData = []
+//    chartData = []
   }
 
   // MARK: - Start
@@ -108,16 +132,16 @@ public class SimulationPerformer: ObservableObject {
   public func performStep() {
     if let action = actions.pop() {
       step = action.getTimestamp()
-      rejector.makeStep(self, actor: .rejector, .straight, stepWidth: step)
+      rejector.makeStep(stepWidth: step)
 
       generators.forEach {
-        $0.makeStep(self, actor: .generator, .straight, stepWidth: step)
+        $0.makeStep(stepWidth: step)
       }
       handlers.forEach {
-        $0.makeStep(self, actor: .handler, .straight, stepWidth: step)
+        $0.makeStep(stepWidth: step)
       }
       buffers.forEach {
-        $0.makeStep(self, actor: .buffer, .straight, stepWidth: step)
+        $0.makeStep(stepWidth: step)
       }
 
       if let act = action.doAction() {
@@ -148,16 +172,30 @@ public class SimulationPerformer: ObservableObject {
     generators.removeAll()
     handlers.removeAll()
     buffers.removeAll()
-    chartData.removeAll()
+    rejector.chartData.removeAll()
+    
+    var baseLine = 0.0
+    let inset = 5.0
 
     for _ in 0 ..< actorsCount {
-      let gen = Generator()
-      let han = Handler()
-      let buf = Buffer()
-
-      generators.append(gen)
-      handlers.append(han)
+      baseLine += inset
+      let buf = Buffer(baseLine: baseLine)
       buffers.append(buf)
+      buf.makeStep(stepWidth: step)
+    }
+
+    for _ in 0 ..< actorsCount {
+      baseLine += inset
+      let han = Handler(baseLine: baseLine)
+      handlers.append(han)
+      han.makeStep(stepWidth: step)
+    }
+
+    for _ in 0 ..< actorsCount {
+      baseLine += inset
+      let gen = Generator(baseLine: baseLine)
+      generators.append(gen)
+      gen.makeStep(stepWidth: step)
     }
   }
 

@@ -22,13 +22,21 @@ public class BufferAction: Action {
     if !buffer.isBusy {
       buffer.currentGenerator = generator
       buffer.waitingFrom = timestamp
-      buffer.makeStep(performer, actor: .buffer, .up, stepWidth: timestamp)
+//      buffer.makeStep(performer, actor: .buffer, .up, stepWidth: timestamp)
+      buffer.makeStep(.up, stepWidth: timestamp)
+      buffer.makeStep(stepWidth: timestamp)
     } else {
-      buffer.makeStep(performer, actor: .buffer, .down, stepWidth: timestamp)
-
+      buffer.makeStep(.down, stepWidth: timestamp)
+      buffer.makeStep(stepWidth: timestamp)
+      buffer.makeStep(.up, stepWidth: timestamp)
+      buffer.makeStep(stepWidth: timestamp)
+      
       let rejector = performer.rejector
       generator.rejectedRequests += 1
-      rejector.makeStep(performer, actor: .rejector, .rejectorTick, stepWidth: timestamp)
+      rejector.makeStep(.up, stepWidth: timestamp)
+      rejector.makeStep(stepWidth: timestamp)
+      rejector.makeStep(.down, stepWidth: timestamp)
+      rejector.makeStep(stepWidth: timestamp)
       
       generator.inBufferTimes.append(timestamp - buffer.waitingFrom)
       

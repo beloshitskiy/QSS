@@ -18,11 +18,16 @@ public class GeneratorAction: Action {
   
   override public func doAction() -> Action? {
     generator.remainingActions -= 1
-    generator.makeStep(performer, actor: .generator, .tick, stepWidth: timestamp)
+    generator.makeStep(.up, stepWidth: timestamp)
+    generator.makeStep(stepWidth: timestamp)
+    
+    generator.makeStep(.down, stepWidth: timestamp)
+    generator.makeStep(stepWidth: timestamp)
 
     if let handler = optHandler {
       handler.isBusy = true
-      generator.makeStep(performer, actor: .generator, .up, stepWidth: timestamp)
+      handler.makeStep(.up, stepWidth: timestamp)
+      handler.makeStep(stepWidth: timestamp)
 
       let time = timestamp + Double.generateTimeForAction()
       handler.usageTime = handler.usageTime + time - timestamp
@@ -36,8 +41,9 @@ public class GeneratorAction: Action {
       return BufferAction(timestamp, buffer, generator, performer)
     }
     
-    performer.rejector.makeStep(performer, actor: .rejector, .rejectorTick, stepWidth: timestamp)
-    generator.rejectedRequests += 1
+//    performer.rejector.makeStep(performer, actor: .rejector, .rejectorTick, stepWidth: timestamp)
+//    generator.rejectedRequests += 1
+    // наверное нужно
     
     return nil
   }
