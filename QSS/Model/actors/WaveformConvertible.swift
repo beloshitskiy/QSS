@@ -28,10 +28,18 @@ public enum StepType: CaseIterable {
   case rejectorTick
 }
 
-protocol WaveformConvertible: ObservableObject, Identifiable {
+protocol WaveformConvertible: ObservableObject, Identifiable, Equatable {
   var chartData: [WaveformPoint] { get set }
 
   var baseLine: Double { get }
 
   func makeStep(_ step: ShortStep, stepWidth: Double, stepHeight: Double)
+  
+  static func == (lhs: Self, rhs: Self) -> Bool
+}
+
+extension WaveformConvertible {
+  public static func == (lhs: Self, rhs: Self) -> Bool {
+    lhs.id == rhs.id
+  }
 }

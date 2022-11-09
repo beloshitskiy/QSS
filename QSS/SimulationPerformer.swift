@@ -9,23 +9,6 @@ import Foundation
 import SwiftPriorityQueue
 
 public class SimulationPerformer: ObservableObject {
-  /*
-   что должно делать?
-
-   auto -> создаем n генераторов, буфферов и перформеров
-   запускаем по нажатию start
-
-   ввод: n
-   вывод: OrderContents для таблицы
-
-   manual -> создаем n генераторов, буфферов и перформеров
-   запускаем по нажатию start
-   делаем шаги по нажатию на кнопку step
-
-   ввод: n
-   вывод: пошаговые waveform
-   */
-
   // queue for actions
   @Published private var actions: PriorityQueue<Action>
 
@@ -33,7 +16,9 @@ public class SimulationPerformer: ObservableObject {
   @Published var ordersCount: Int
 
   // count of actors of each-type below
-  @Published public var actorsCount: Int
+  @Published public var generatorsCount: Int
+  @Published public var handlersCount: Int
+  @Published public var buffersCount: Int
 
   // actors
   @Published public var generators: [Generator]
@@ -45,52 +30,44 @@ public class SimulationPerformer: ObservableObject {
   @Published var totalRequestsCount: Int
   @Published var tableResults: [OrderContent]
 
-  // data for WaveformsView
-  var chartData: [WaveformPoint] {
-    var data = [WaveformPoint]()
-    
-    generators.forEach { data.append(contentsOf: $0.chartData) }
-    buffers.forEach { data.append(contentsOf: $0.chartData) }
-    handlers.forEach { data.append(contentsOf: $0.chartData) }
-    data.append(contentsOf: rejector.chartData)
-    
-    return data
-  }
-
-  // for timestamp graph
-  var step: Double
+  // variables and constants for beautifing WaveformView
+  private var baseLine = 0.0
+  private let inset = 1.5
+  private var step: Double
 
   // MARK: - Inits
 
-  public init(actions: PriorityQueue<Action> = PriorityQueue<Action>(ascending: true), actorsCount: Int = 3) {
+  public init(actions: PriorityQueue<Action> = PriorityQueue<Action>(ascending: true),
+              generatorsCount: Int = 3, handlersCount: Int = 3, buffersCount: Int = 3)
+  {
     self.actions = actions
     ordersCount = 0
 
-    var baseLine = 0.0
-    let inset = 5.0
+    self.generatorsCount = generatorsCount
+    self.handlersCount = handlersCount
+    self.buffersCount = buffersCount
 
-    self.actorsCount = actorsCount
     var generators = [Generator]()
     var handlers = [Handler]()
     var buffers = [Buffer]()
 
     step = 0
 
-    for _ in 0 ..< actorsCount {
+    for _ in 0 ..< buffersCount {
       baseLine += inset
       let buf = Buffer(baseLine: baseLine)
       buffers.append(buf)
       buf.makeStep(stepWidth: step)
     }
 
-    for _ in 0 ..< actorsCount {
+    for _ in 0 ..< handlersCount {
       baseLine += inset
       let han = Handler(baseLine: baseLine)
       handlers.append(han)
       han.makeStep(stepWidth: step)
     }
 
-    for _ in 0 ..< actorsCount {
+    for _ in 0 ..< generatorsCount {
       baseLine += inset
       let gen = Generator(baseLine: baseLine)
       generators.append(gen)
@@ -104,12 +81,12 @@ public class SimulationPerformer: ObservableObject {
 
     totalRequestsCount = 0
     tableResults = []
-//    chartData = []
   }
 
   // MARK: - Start
 
   public func startAuto() {
+    reset()
     fillWithActions()
     guard !actions.isEmpty else {
       return
@@ -123,10 +100,12 @@ public class SimulationPerformer: ObservableObject {
   }
 
   public func startManual() {
+    reset()
     fillWithActions()
     guard !actions.isEmpty else {
       return
     }
+    performStep()
   }
 
   public func performStep() {
@@ -152,7 +131,9 @@ public class SimulationPerformer: ObservableObject {
 
   public func fillWithActions() {
     for _ in 0 ..< ordersCount {
-      guard let generator = generators.randomElement() else { return }
+      guard let generator = generators.randomElement() else {
+        return
+      }
       generator.remainingActions += 1
       var timestamp = generator.lastActionTimestamp
 
@@ -173,25 +154,25 @@ public class SimulationPerformer: ObservableObject {
     handlers.removeAll()
     buffers.removeAll()
     rejector.chartData.removeAll()
-    
-    var baseLine = 0.0
-    let inset = 5.0
+    tableResults.removeAll()
 
-    for _ in 0 ..< actorsCount {
+    baseLine = 0.0
+
+    for _ in 0 ..< buffersCount {
       baseLine += inset
       let buf = Buffer(baseLine: baseLine)
       buffers.append(buf)
       buf.makeStep(stepWidth: step)
     }
 
-    for _ in 0 ..< actorsCount {
+    for _ in 0 ..< handlersCount {
       baseLine += inset
       let han = Handler(baseLine: baseLine)
       handlers.append(han)
       han.makeStep(stepWidth: step)
     }
 
-    for _ in 0 ..< actorsCount {
+    for _ in 0 ..< generatorsCount {
       baseLine += inset
       let gen = Generator(baseLine: baseLine)
       generators.append(gen)

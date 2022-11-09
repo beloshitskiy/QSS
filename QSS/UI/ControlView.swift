@@ -11,15 +11,16 @@ struct ControlView: View {
   @EnvironmentObject var appState: AppState
 
   var body: some View {
-    VStack {
-      HStack {
-        Text("Number of orders:")
-        TextField("", value: $appState.ordersCount, format: .number)
-          .textFieldStyle(.roundedBorder)
-          .frame(width: 75)
-      }
+    HStack {
+      VStack {
+        HStack {
+          Text("Number of orders:")
+          TextField("", value: $appState.ordersCount, format: .number)
+            .textFieldStyle(.roundedBorder)
+            .frame(width: 75)
+        }
 
-      switch appState.appMode {
+        switch appState.appMode {
         case .auto:
           Button {
             if !appState.isStarted {
@@ -37,11 +38,15 @@ struct ControlView: View {
           HStack {
             Button {
               if !appState.isStarted {
-                appState.simulation.startManual()
-                appState.isStarted = true
+                withAnimation {
+                  appState.simulation.startManual()
+                  appState.isStarted = true
+                }
               } else {
-                appState.simulation.reset()
-                appState.isStarted = false
+                withAnimation {
+                  appState.simulation.reset()
+                  appState.isStarted = false
+                }
               }
             } label: {
               Text(!appState.isStarted ? "Start" : "Reset")
@@ -59,9 +64,22 @@ struct ControlView: View {
           }
 
         default: EmptyView()
+        }
       }
+      .padding()
+      VStack(alignment: .leading) {
+        Stepper(value: $appState.simulation.generatorsCount, in: 1 ... 10, step: 1) {
+          Text("Number of generators: \(appState.simulation.generatorsCount)")
+        }
+        Stepper(value: $appState.simulation.handlersCount, in: 1 ... 10, step: 1) {
+          Text("Number of handlers: \(appState.simulation.handlersCount)")
+        }
+        Stepper(value: $appState.simulation.buffersCount, in: 1 ... 10, step: 1) {
+          Text("Number of buffers: \(appState.simulation.buffersCount)")
+        }
+      }
+      .padding()
     }
-    .padding()
   }
 }
 

@@ -41,17 +41,13 @@ public class GeneratorAction: Action {
       return BufferAction(timestamp, buffer, generator, performer)
     }
     
-//    performer.rejector.makeStep(performer, actor: .rejector, .rejectorTick, stepWidth: timestamp)
-//    generator.rejectedRequests += 1
-    // наверное нужно
-    
     return nil
   }
   
   public init(_ timestamp: Double, _ generator: Generator, _ helper: SimulationPerformer) {
     self.timestamp = timestamp
     self.generator = generator
-    self.performer = helper
+    performer = helper
     
     super.init()
   }

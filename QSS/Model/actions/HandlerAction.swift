@@ -57,7 +57,7 @@ public class HandlerAction: Action {
     self.timestamp = timestamp
     self.handler = handler
     self.generator = generator
-    self.performer = helper
+    performer = helper
 
     super.init()
   }
