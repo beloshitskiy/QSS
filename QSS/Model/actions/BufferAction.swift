@@ -19,21 +19,21 @@ public class BufferAction: Action {
   private let performer: SimulationPerformer
   
   override public func doAction() -> Action? {
-    if buffer.isBusy {
+    if !buffer.isBusy {
       buffer.currentGenerator = generator
       buffer.waitingFrom = timestamp
-      buffer.makeStep(.up)
+      buffer.makeStep(performer, actor: .buffer, .up, stepWidth: timestamp)
     } else {
-      buffer.makeStep(.down)
-//      buffer.makeStep(.up)
+      buffer.makeStep(performer, actor: .buffer, .down, stepWidth: timestamp)
 
       let rejector = performer.rejector
       generator.rejectedRequests += 1
+      rejector.makeStep(performer, actor: .rejector, .rejectorTick, stepWidth: timestamp)
+      
       generator.inBufferTimes.append(timestamp - buffer.waitingFrom)
-      performer.rejectedRequestsCount += 1
+      
       buffer.currentGenerator = generator
       buffer.waitingFrom = timestamp
-      rejector.makeStep(.rejectorTick)
     }
     return nil
   }

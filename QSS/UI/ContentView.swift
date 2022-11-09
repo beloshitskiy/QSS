@@ -15,7 +15,7 @@ struct ContentView: View {
       SidebarView()
       switch appState.appMode {
         case .auto: TableView()
-        case .manual: ScrollView { WaveformsView() }
+        case .manual: ScrollView { WaveformView() }
         default: Text("Choose mode").font(.largeTitle)
       }
     }

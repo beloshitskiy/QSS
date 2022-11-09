@@ -9,18 +9,19 @@ import Foundation
 
 extension Double {
   static func generateTimeForAction(withScalingRate rate: Double = 1.0) -> Double {
-    log((1 - Double.random(in: 0.2 ..< 1)) / Double(-rate))
+    -log(1 - Double.random(in: 0.2 ..< 1))
   }
 }
 
 extension Int {
   static func generateTimeForAction() -> Int {
-    Int.random(in: 0 ... 5)
+    Int.random(in: 1 ... 5)
   }
 }
 
 extension [Double] {
   var average: Double {
-    self.reduce(0, +) / Double(self.count)
+    guard !self.isEmpty else { return 0.0 }
+    return self.reduce(0, +) / Double(self.count)
   }
 }
