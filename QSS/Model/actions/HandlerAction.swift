@@ -18,10 +18,10 @@ public class HandlerAction: Action {
 
   override public func doAction() -> Action? {
     handler.isBusy = false
-    handler.makeStep(.down)
-    if let buffer = optFreeBuffer {
+    handler.makeStep(performer, actor: .handler, .down, stepWidth: timestamp)
+    if let buffer = optBusyBuffer {
       handler.isBusy = true
-      handler.makeStep(.tick)
+      handler.makeStep(performer, actor: .handler, .tick, stepWidth: timestamp)
       if let generator = buffer.currentGenerator {
         buffer.currentGenerator = nil
         let time = timestamp + Double.generateTimeForAction()
@@ -35,12 +35,12 @@ public class HandlerAction: Action {
     return nil
   }
 
-  private var optFreeBuffer: Buffer? {
-    guard !performer.buffers.allSatisfy({ $0.isBusy }) else {
+  private var optBusyBuffer: Buffer? {
+    guard performer.buffers.allSatisfy({ $0.isBusy }) else {
       return nil
     }
 
-    for buf in performer.buffers where !buf.isBusy {
+    for buf in performer.buffers where buf.isBusy {
       return buf
     }
 

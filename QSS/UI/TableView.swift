@@ -9,14 +9,18 @@ import SwiftUI
 
 public struct OrderContent: Identifiable {
   public let id = UUID()
+  static var totalOrdersCount = 0
 
   let generator: Int
-  var totalOrdersCount: Int
+  var handledOrdersCount: Int
   var avProcessingTime: Double
   var avInBufferTime: Double
   var rejectCount: Int
 
-  var rejectPercent: Double { Double(rejectCount) / Double(totalOrdersCount) }
+  var rejectPercent: Double {
+    guard OrderContent.totalOrdersCount != 0 else { return 0.0 }
+    return Double(rejectCount) / Double(OrderContent.totalOrdersCount) * 100
+  }
 }
 
 struct TableView: View {
@@ -28,14 +32,14 @@ struct TableView: View {
         TableColumn("Generators") {
           Text("№\($0.generator + 1)")
         }
-        TableColumn("Orders") {
-          Text($0.totalOrdersCount, format: .number)
+        TableColumn("Handled orders") {
+          Text($0.handledOrdersCount, format: .number)
         }
         TableColumn("Processing time (average)") {
-          Text("\($0.avProcessingTime)")
+          Text($0.avProcessingTime, format: .number)
         }
         TableColumn("In-buffer time (average)") {
-          Text("\($0.avInBufferTime)")
+          Text($0.avInBufferTime, format: .number)
         }
         TableColumn("Reject %") {
           Text($0.rejectPercent, format: .number)

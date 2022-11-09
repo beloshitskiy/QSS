@@ -12,7 +12,7 @@ enum Mode: String, CaseIterable {
   case manual = "Manual"
 }
 
-class AppState: ObservableObject {
+final class AppState: ObservableObject {
   @Published var simulation = SimulationPerformer()
   @Published var appMode: Mode? = .auto
   @Published var isStarted = false
@@ -23,4 +23,5 @@ class AppState: ObservableObject {
       }
     }
   }
+  @Published var kostyul = false
 }

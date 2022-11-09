@@ -18,11 +18,11 @@ public class GeneratorAction: Action {
   
   override public func doAction() -> Action? {
     generator.remainingActions -= 1
-    generator.makeStep(.tick)
+    generator.makeStep(performer, actor: .generator, .tick, stepWidth: timestamp)
 
     if let handler = optHandler {
       handler.isBusy = true
-      handler.makeStep(.up)
+      generator.makeStep(performer, actor: .generator, .up, stepWidth: timestamp)
 
       let time = timestamp + Double.generateTimeForAction()
       handler.usageTime = handler.usageTime + time - timestamp
@@ -32,10 +32,12 @@ public class GeneratorAction: Action {
       return HandlerAction(time, handler, generator, performer)
     }
     
-    
     if let buffer = optFreeBuffer {
       return BufferAction(timestamp, buffer, generator, performer)
     }
+    
+    performer.rejector.makeStep(performer, actor: .rejector, .rejectorTick, stepWidth: timestamp)
+    generator.rejectedRequests += 1
     
     return nil
   }

@@ -9,7 +9,6 @@ import SwiftUI
 
 struct ControlView: View {
   @EnvironmentObject var appState: AppState
-//  @State private var ordersCount = 0
 
   var body: some View {
     VStack {
@@ -49,7 +48,10 @@ struct ControlView: View {
             }.buttonStyle(.bordered)
 
             Button {
-              appState.simulation.performStep()
+              withAnimation {
+                appState.simulation.performStep()
+                appState.kostyul.toggle()
+              }
             } label: {
               Text("Step")
             }.disabled(!appState.isStarted)

@@ -14,12 +14,8 @@ public class Handler: WaveformConvertible {
   
   public var usageTime: Double
   
-  // for drawing chart
-  @Published var chartPoints: [Point]
-  
   public init() {
     isBusy = false
-    usageTime = 0
-    chartPoints = [Point(value: 0.0)]
+    usageTime = 0.0
   }
 }

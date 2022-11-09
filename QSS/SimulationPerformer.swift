@@ -43,15 +43,17 @@ public class SimulationPerformer: ObservableObject {
 
   // statistics for TableView
   @Published var totalRequestsCount: Int
-  @Published var rejectedRequestsCount: Int
   @Published var tableResults: [OrderContent]
+
+  // data for WaveformsView
+  @Published var chartData: [WaveformPoint]
 
   // for timestamp graph
   var step: Double
 
   // MARK: - Inits
 
-  public init(actions: PriorityQueue<Action> = PriorityQueue<Action>(ascending: true), actorsCount: Int = 2) {
+  public init(actions: PriorityQueue<Action> = PriorityQueue<Action>(ascending: true), actorsCount: Int = 1) {
     self.actions = actions
     ordersCount = 0
 
@@ -77,8 +79,8 @@ public class SimulationPerformer: ObservableObject {
 
     step = 0
     totalRequestsCount = 0
-    rejectedRequestsCount = 0
     tableResults = []
+    chartData = []
   }
 
   // MARK: - Start
@@ -92,7 +94,7 @@ public class SimulationPerformer: ObservableObject {
     while !actions.isEmpty {
       performStep()
     }
-    
+
     tableResults = getTableResults()
   }
 
@@ -106,16 +108,16 @@ public class SimulationPerformer: ObservableObject {
   public func performStep() {
     if let action = actions.pop() {
       step = action.getTimestamp()
-      rejector.makeStep()
+      rejector.makeStep(self, actor: .rejector, .straight, stepWidth: step)
 
       generators.forEach {
-        $0.makeStep()
-      }
-      buffers.forEach {
-        $0.makeStep()
+        $0.makeStep(self, actor: .generator, .straight, stepWidth: step)
       }
       handlers.forEach {
-        $0.makeStep()
+        $0.makeStep(self, actor: .handler, .straight, stepWidth: step)
+      }
+      buffers.forEach {
+        $0.makeStep(self, actor: .buffer, .straight, stepWidth: step)
       }
 
       if let act = action.doAction() {
@@ -140,14 +142,13 @@ public class SimulationPerformer: ObservableObject {
   public func reset() {
     step = 0
     totalRequestsCount = 0
-    rejectedRequestsCount = 0
 
     actions.clear()
 
     generators.removeAll()
     handlers.removeAll()
     buffers.removeAll()
-    rejector.chartPoints = Array(rejector.chartPoints.prefix(upTo: 1))
+    chartData.removeAll()
 
     for _ in 0 ..< actorsCount {
       let gen = Generator()
@@ -162,11 +163,12 @@ public class SimulationPerformer: ObservableObject {
 
   public func getTableResults() -> [OrderContent] {
     var contents = [OrderContent]()
+    OrderContent.totalOrdersCount = ordersCount
 
     for i in 0 ..< generators.count {
       let currentGen = generators[i]
       let c = OrderContent(generator: i,
-                           totalOrdersCount: currentGen.acceptedOrders + currentGen.rejectedRequests,
+                           handledOrdersCount: currentGen.acceptedOrders,
                            avProcessingTime: currentGen.handlingTimes.average,
                            avInBufferTime: currentGen.inBufferTimes.average,
                            rejectCount: currentGen.rejectedRequests)

@@ -17,13 +17,9 @@ public class Buffer: WaveformConvertible {
   
   public var isBusy: Bool { currentGenerator != nil }
   
-  // for drawing chart
-  @Published var chartPoints: [Point]
-  
   public init() {
     currentGenerator = nil
     isNewest = false
-    waitingFrom = 0
-    chartPoints = [Point(value: 0.0)]
+    waitingFrom = 0.0
   }
 }

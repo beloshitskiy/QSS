@@ -17,9 +17,6 @@ public class Generator: WaveformConvertible {
   
   var isEmpty: Bool { remainingActions == 0 }
   
-  // for drawing chart
-  @Published var chartPoints: [Point]
-  
   // for statistics
   var acceptedOrders: Int
   var rejectedRequests: Int
@@ -29,12 +26,11 @@ public class Generator: WaveformConvertible {
   
   public init() {
     remainingActions = 0
-    lastActionTimestamp = 0
+    lastActionTimestamp = 0.0
     circlePointer = 0
     rejectedRequests = 0
     acceptedOrders = 0
     inBufferTimes = [Double]()
     handlingTimes = [Double]()
-    chartPoints = [Point(value: 0.0)]
   }
 }
