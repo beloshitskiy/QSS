@@ -14,18 +14,10 @@ public struct Point: Identifiable {
   var y: Double
 }
 
-public enum ShortStep: CaseIterable {
+public enum Step: CaseIterable {
   case straight
   case up
   case down
-}
-
-public enum StepType: CaseIterable {
-  case straight
-  case up
-  case down
-  case tick
-  case rejectorTick
 }
 
 protocol WaveformConvertible: ObservableObject, Identifiable, Equatable {
@@ -33,7 +25,7 @@ protocol WaveformConvertible: ObservableObject, Identifiable, Equatable {
 
   var baseLine: Double { get }
 
-  func makeStep(_ step: ShortStep, stepWidth: Double, stepHeight: Double)
+  func makeStep(_ step: Step, stepWidth: Double, stepHeight: Double)
   
   static func == (lhs: Self, rhs: Self) -> Bool
 }

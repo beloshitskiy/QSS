@@ -13,7 +13,7 @@ public class Rejector: WaveformConvertible {
   let baseLine = 0.0
   @Published var chartData = [WaveformPoint]()
 
-  func makeStep(_ step: ShortStep = .straight, stepWidth: Double, stepHeight: Double = 1.0) {
+  func makeStep(_ step: Step = .straight, stepWidth: Double, stepHeight: Double = 1.0) {
     let up = WaveformPoint(.rejector, .init(x: stepWidth, y: baseLine + stepHeight))
     let down = WaveformPoint(.rejector, .init(x: stepWidth, y: baseLine))
     

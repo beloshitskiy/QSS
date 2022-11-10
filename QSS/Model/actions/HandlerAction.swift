@@ -20,6 +20,7 @@ public class HandlerAction: Action {
     handler.isBusy = false
     handler.makeStep(.down, stepWidth: timestamp)
     handler.makeStep(stepWidth: timestamp)
+
     if let buffer = optBusyBuffer {
       handler.isBusy = true
       handler.makeStep(.up, stepWidth: timestamp)

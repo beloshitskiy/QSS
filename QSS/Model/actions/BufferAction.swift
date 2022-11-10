@@ -22,7 +22,6 @@ public class BufferAction: Action {
     if !buffer.isBusy {
       buffer.currentGenerator = generator
       buffer.waitingFrom = timestamp
-//      buffer.makeStep(performer, actor: .buffer, .up, stepWidth: timestamp)
       buffer.makeStep(.up, stepWidth: timestamp)
       buffer.makeStep(stepWidth: timestamp)
     } else {

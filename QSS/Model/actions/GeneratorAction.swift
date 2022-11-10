@@ -41,6 +41,11 @@ public class GeneratorAction: Action {
       return BufferAction(timestamp, buffer, generator, performer)
     }
     
+    performer.rejector.makeStep(.up, stepWidth: timestamp)
+    performer.rejector.makeStep(.up, stepWidth: timestamp)
+    performer.rejector.makeStep(stepWidth: timestamp)
+    generator.rejectedRequests += 1
+    
     return nil
   }
   
