@@ -57,6 +57,8 @@ struct WaveformView: View {
             .foregroundStyle(by: .value("Actor", "Rejector"))
         }
       }
+      .chartYAxisLabel("Time passed")
+      
       ControlView()
     }
     .padding()

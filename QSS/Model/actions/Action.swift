@@ -12,7 +12,12 @@ public class Action: Comparable {
 
   public func getTimestamp() -> Double { 0.0 }
 
-  public static func < (lhs: Action, rhs: Action) -> Bool { true }
+  public static func < (lhs: Action, rhs: Action) -> Bool {
+    lhs.getTimestamp() < rhs.getTimestamp()
+  }
 
-  public static func == (lhs: Action, rhs: Action) -> Bool { true }
+  public static func == (lhs: Action, rhs: Action) -> Bool {
+    lhs.getTimestamp() == rhs.getTimestamp()
+  }
 }
+

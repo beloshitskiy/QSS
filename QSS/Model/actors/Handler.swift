@@ -18,7 +18,7 @@ public class Handler: WaveformConvertible {
   
   @Published var chartData: [WaveformPoint]
   
-  func makeStep(_ step: ShortStep = .straight, stepWidth: Double, stepHeight: Double = 1.0) {
+  func makeStep(_ step: Step = .straight, stepWidth: Double, stepHeight: Double = 1.0) {
     let up = WaveformPoint(.handler, .init(x: stepWidth, y: baseLine + stepHeight))
     let down = WaveformPoint(.handler, .init(x: stepWidth, y: baseLine))
     
