@@ -13,8 +13,7 @@ final class ActorsFactory {
                                 buffersCount: Int,
                                 baseLine: Double = 0.0,
                                 inset: Double = 1.5)
-    -> (generators: [Generator], handlers: [Handler], buffers: [Buffer], rejector: Rejector)
-  {
+    -> (generators: [Generator], handlers: [Handler], buffers: [Buffer], rejector: Rejector) {
     var generators = [Generator]()
     var handlers = [Handler]()
     var buffers = [Buffer]()

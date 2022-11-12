@@ -15,8 +15,7 @@ final class HandlerAction: Action {
   private let performer: SimulationPerformer
 
   init(_ timestamp: Double, _ handler: Handler,
-       _ generator: Generator, _ helper: SimulationPerformer)
-  {
+       _ generator: Generator, _ helper: SimulationPerformer) {
     self.timestamp = timestamp
     self.handler = handler
     self.generator = generator

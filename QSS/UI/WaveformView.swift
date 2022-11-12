@@ -52,11 +52,11 @@ struct WaveformView: View {
   private func num(_ actor: any WaveformConvertible) -> String {
     switch actor {
     case is Generator:
-      return "Generator\(String(describing: appState.simulation.generators.firstIndex { $0 === actor as! Generator }))"
+      return "Generator\(String(describing: appState.simulation.generators.firstIndex { $0 === actor as? Generator }))"
     case is Handler:
-      return "Handler\(String(describing: appState.simulation.handlers.firstIndex { $0 === actor as! Handler }))"
+      return "Handler\(String(describing: appState.simulation.handlers.firstIndex { $0 === actor as? Handler }))"
     case is Buffer:
-      return "Buffer\(String(describing: appState.simulation.buffers.firstIndex { $0 === actor as! Buffer }))"
+      return "Buffer\(String(describing: appState.simulation.buffers.firstIndex { $0 === actor as? Buffer }))"
     default: return ""
     }
   }

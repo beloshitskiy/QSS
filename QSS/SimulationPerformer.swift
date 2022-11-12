@@ -149,12 +149,12 @@ final class SimulationPerformer {
 
     for i in 0 ..< generators.count {
       let currentGen = generators[i]
-      let c = OrderContent(generator: i,
+      let content = OrderContent(generator: i,
                            handledOrdersCount: currentGen.acceptedOrders,
                            avProcessingTime: currentGen.handlingTimes.average,
                            avInBufferTime: currentGen.inBufferTimes.average,
                            rejectCount: currentGen.rejectedRequests)
-      contents.append(c)
+      contents.append(content)
     }
     return contents
   }

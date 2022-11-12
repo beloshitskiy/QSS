@@ -15,8 +15,7 @@ final class BufferAction: Action {
   private let performer: SimulationPerformer
   
   init(_ timestamp: Double, _ buffer: Buffer,
-       _ generator: Generator, _ performer: SimulationPerformer)
-  {
+       _ generator: Generator, _ performer: SimulationPerformer) {
     self.timestamp = timestamp
     self.buffer = buffer
     self.generator = generator

@@ -24,6 +24,5 @@ final class AppState: ObservableObject {
     }
   }
 
-  // TODO: Get rid of explicit view updater
   @Published var kostyul = false
 }
