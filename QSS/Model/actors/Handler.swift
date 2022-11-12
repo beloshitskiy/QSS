@@ -7,20 +7,26 @@
 
 import Foundation
 
-public class Handler: WaveformConvertible {
-  public let id = UUID()
+final class Handler: WaveformConvertible {
+  let id = UUID()
   
-  public var isBusy: Bool
+  var isBusy: Bool
+  var usageTime: Double
   
-  public var usageTime: Double
+  init(baseLine: Double) {
+    isBusy = false
+    usageTime = 0.0
+    self.baseLine = baseLine
+    chartData = []
+  }
   
+  // WaveformConvertible conformance
   let baseLine: Double
-  
-  @Published var chartData: [WaveformPoint]
+  private(set) var chartData: [WaveformPoint]
   
   func makeStep(_ step: Step = .straight, stepWidth: Double, stepHeight: Double = 1.0) {
-    let up = WaveformPoint(.handler, .init(x: stepWidth, y: baseLine + stepHeight))
-    let down = WaveformPoint(.handler, .init(x: stepWidth, y: baseLine))
+    let up = WaveformPoint(.handler, (x: stepWidth, y: baseLine + stepHeight))
+    let down = WaveformPoint(.handler, (x: stepWidth, y: baseLine))
     
     guard let lastPoint = chartData.last else {
       chartData.append(down)
@@ -35,12 +41,5 @@ public class Handler: WaveformConvertible {
     }
     
     chartData.append(newPoint)
-  }
-  
-  public init(baseLine: Double) {
-    isBusy = false
-    usageTime = 0.0
-    self.baseLine = baseLine
-    chartData = []
   }
 }

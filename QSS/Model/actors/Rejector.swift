@@ -7,15 +7,16 @@
 
 import Foundation
 
-public class Rejector: WaveformConvertible {
-  public let id = UUID()
+final class Rejector: WaveformConvertible {
+  let id = UUID()
 
+  // WaveformConvertible conformance
   let baseLine = 0.0
-  @Published var chartData = [WaveformPoint]()
+  private(set) var chartData = [WaveformPoint]()
 
   func makeStep(_ step: Step = .straight, stepWidth: Double, stepHeight: Double = 1.0) {
-    let up = WaveformPoint(.rejector, .init(x: stepWidth, y: baseLine + stepHeight))
-    let down = WaveformPoint(.rejector, .init(x: stepWidth, y: baseLine))
+    let up = WaveformPoint(.rejector, (x: stepWidth, y: baseLine + stepHeight))
+    let down = WaveformPoint(.rejector, (x: stepWidth, y: baseLine))
     
     guard let lastPoint = chartData.last else {
       chartData.append(down)
@@ -30,5 +31,9 @@ public class Rejector: WaveformConvertible {
     }
     
     chartData.append(newPoint)
+  }
+  
+  func clear() {
+    chartData.removeAll()
   }
 }

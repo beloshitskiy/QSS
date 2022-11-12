@@ -7,30 +7,44 @@
 
 import Foundation
 
-public class Generator: WaveformConvertible {
-  public let id = UUID()
+final class Generator: WaveformConvertible {
+  let id = UUID()
   
+  // for correct time usage
   var remainingActions: Int
   var lastActionTimestamp: Double
   
-  var circlePointer: Int
+  // for choosing buffer
+  var circlePointer: Array.Index
   
   var isEmpty: Bool { remainingActions == 0 }
   
-  // for statistics
+  // for TableView report
   var acceptedOrders: Int
   var rejectedRequests: Int
   
   var inBufferTimes: [Double]
   var handlingTimes: [Double]
   
-  let baseLine: Double
+  init(baseLine: Double) {
+    remainingActions = 0
+    lastActionTimestamp = 0.0
+    circlePointer = 0
+    rejectedRequests = 0
+    acceptedOrders = 0
+    inBufferTimes = []
+    handlingTimes = []
+    self.baseLine = baseLine
+    chartData = []
+  }
   
-  @Published var chartData: [WaveformPoint]
+  // WaveformConvertible conformance
+  let baseLine: Double
+  private(set) var chartData: [WaveformPoint]
   
   func makeStep(_ step: Step = .straight, stepWidth: Double, stepHeight: Double = 1.0) {
-    let up = WaveformPoint(.generator, .init(x: stepWidth, y: baseLine + stepHeight))
-    let down = WaveformPoint(.generator, .init(x: stepWidth, y: baseLine))
+    let up = WaveformPoint(.generator, (x: stepWidth, y: baseLine + stepHeight))
+    let down = WaveformPoint(.generator, (x: stepWidth, y: baseLine))
     
     guard let lastPoint = chartData.last else {
       chartData.append(down)
@@ -45,17 +59,5 @@ public class Generator: WaveformConvertible {
     }
     
     chartData.append(newPoint)
-  }
-  
-  public init(baseLine: Double) {
-    remainingActions = 0
-    lastActionTimestamp = 0.0
-    circlePointer = 0
-    rejectedRequests = 0
-    acceptedOrders = 0
-    inBufferTimes = []
-    handlingTimes = []
-    self.baseLine = baseLine
-    chartData = []
   }
 }

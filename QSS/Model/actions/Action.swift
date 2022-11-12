@@ -7,17 +7,23 @@
 
 import Foundation
 
-public class Action: Comparable {
-  func doAction() -> Action? { nil }
+class Action: Comparable {
+  private var value: Double
 
-  public func getTimestamp() -> Double { 0.0 }
-
-  public static func < (lhs: Action, rhs: Action) -> Bool {
-    lhs.getTimestamp() < rhs.getTimestamp()
+  init(value: Double) {
+    self.value = value
   }
 
-  public static func == (lhs: Action, rhs: Action) -> Bool {
-    lhs.getTimestamp() == rhs.getTimestamp()
+  // must be overriden
+  func doAction() -> Action? { nil }
+  func getTimestamp() -> Double { value }
+
+  // comparable conformance
+  static func < (lhs: Action, rhs: Action) -> Bool {
+    lhs.value < rhs.value
+  }
+
+  static func == (lhs: Action, rhs: Action) -> Bool {
+    lhs.value == rhs.value
   }
 }
-

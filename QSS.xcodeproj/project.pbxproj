@@ -27,6 +27,7 @@
 		2D43852D2912FE5000267EB9 /* Double+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2D43852C2912FE5000267EB9 /* Double+Extensions.swift */; };
 		2D43853D2917E33F00267EB9 /* WaveformConvertible.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2D43853C2917E33F00267EB9 /* WaveformConvertible.swift */; };
 		2DAE5D73291AFFDB003A4417 /* WaveformView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2DAE5D72291AFFDB003A4417 /* WaveformView.swift */; };
+		2DBAA3C22920366B00CAFE89 /* ActorsFactory.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2DBAA3C12920366B00CAFE89 /* ActorsFactory.swift */; };
 		2DD6E4E62907FE0300D1AF41 /* QSSApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2DD6E4E52907FE0300D1AF41 /* QSSApp.swift */; };
 		2DD6E4EA2907FE0300D1AF41 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 2DD6E4E92907FE0300D1AF41 /* Assets.xcassets */; };
 		2DD6E4ED2907FE0300D1AF41 /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 2DD6E4EC2907FE0300D1AF41 /* Preview Assets.xcassets */; };
@@ -54,6 +55,7 @@
 		2D43852C2912FE5000267EB9 /* Double+Extensions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "Double+Extensions.swift"; sourceTree = "<group>"; };
 		2D43853C2917E33F00267EB9 /* WaveformConvertible.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WaveformConvertible.swift; sourceTree = "<group>"; };
 		2DAE5D72291AFFDB003A4417 /* WaveformView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WaveformView.swift; sourceTree = "<group>"; };
+		2DBAA3C12920366B00CAFE89 /* ActorsFactory.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ActorsFactory.swift; sourceTree = "<group>"; };
 		2DD6E4E22907FE0300D1AF41 /* QSS.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = QSS.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		2DD6E4E52907FE0300D1AF41 /* QSSApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = QSSApp.swift; sourceTree = "<group>"; };
 		2DD6E4E92907FE0300D1AF41 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
@@ -115,6 +117,7 @@
 				2D4385262912FE2200267EB9 /* Handler.swift */,
 				2D4385242912FE2200267EB9 /* Buffer.swift */,
 				2D4385272912FE2200267EB9 /* Rejector.swift */,
+				2DBAA3C12920366B00CAFE89 /* ActorsFactory.swift */,
 			);
 			path = actors;
 			sourceTree = "<group>";
@@ -170,6 +173,7 @@
 				2DD6E4DE2907FE0300D1AF41 /* Sources */,
 				2DD6E4DF2907FE0300D1AF41 /* Frameworks */,
 				2DD6E4E02907FE0300D1AF41 /* Resources */,
+				2DBAA3C32920401100CAFE89 /* Run Script */,
 			);
 			buildRules = (
 			);
@@ -232,6 +236,28 @@
 		};
 /* End PBXResourcesBuildPhase section */
 
+/* Begin PBXShellScriptBuildPhase section */
+		2DBAA3C32920401100CAFE89 /* Run Script */ = {
+			isa = PBXShellScriptBuildPhase;
+			alwaysOutOfDate = 1;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+			);
+			inputPaths = (
+			);
+			name = "Run Script";
+			outputFileListPaths = (
+			);
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "export PATH=\"$PATH:/opt/homebrew/bin\"\nif which swiftlint > /dev/null; then\n  swiftlint\nelse\n  echo \"warning: SwiftLint not installed, download from https://github.com/realm/SwiftLint\"\nfi\n";
+		};
+/* End PBXShellScriptBuildPhase section */
+
 /* Begin PBXSourcesBuildPhase section */
 		2DD6E4DE2907FE0300D1AF41 /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
@@ -242,6 +268,7 @@
 				2D06CAC0290BDC0900B33482 /* Menus.swift in Sources */,
 				2D06CABA290BD59B00B33482 /* ContentView.swift in Sources */,
 				2D4385222912FE1D00267EB9 /* Action.swift in Sources */,
+				2DBAA3C22920366B00CAFE89 /* ActorsFactory.swift in Sources */,
 				2D43852A2912FE2200267EB9 /* Handler.swift in Sources */,
 				2D4385182912FDD700267EB9 /* SimulationPerformer.swift in Sources */,
 				2D43852B2912FE2200267EB9 /* Rejector.swift in Sources */,

@@ -7,23 +7,27 @@
 
 import Foundation
 
-public class Buffer: WaveformConvertible {
-  public let id = UUID()
+final class Buffer: WaveformConvertible {
+  let id = UUID()
   
-  public var currentGenerator: Generator?
+  var waitingFrom: Double
+  var currentGenerator: Generator?
+  var isBusy: Bool { currentGenerator != nil }
   
-  public var waitingFrom: Double
-  public var isNewest: Bool
+  init(baseLine: Double) {
+    currentGenerator = nil
+    waitingFrom = 0.0
+    self.baseLine = baseLine
+    chartData = []
+  }
   
-  public var isBusy: Bool { currentGenerator != nil }
-  
+  // WaveformConvertible conformance
   let baseLine: Double
-  
-  @Published var chartData: [WaveformPoint]
+  private(set) var chartData: [WaveformPoint]
   
   func makeStep(_ step: Step = .straight, stepWidth: Double, stepHeight: Double = 1.0) {
-    let up = WaveformPoint(.buffer, .init(x: stepWidth, y: baseLine + stepHeight))
-    let down = WaveformPoint(.buffer, .init(x: stepWidth, y: baseLine))
+    let up = WaveformPoint(.buffer, (x: stepWidth, y: baseLine + stepHeight))
+    let down = WaveformPoint(.buffer, (x: stepWidth, y: baseLine))
     
     guard let lastPoint = chartData.last else {
       chartData.append(down)
@@ -38,13 +42,5 @@ public class Buffer: WaveformConvertible {
     }
     
     chartData.append(newPoint)
-  }
-  
-  public init(baseLine: Double) {
-    currentGenerator = nil
-    isNewest = false
-    waitingFrom = 0.0
-    self.baseLine = baseLine
-    chartData = []
   }
 }

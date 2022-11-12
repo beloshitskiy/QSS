@@ -8,107 +8,82 @@
 import Foundation
 import SwiftPriorityQueue
 
-public class SimulationPerformer: ObservableObject {
+final class SimulationPerformer {
   // queue for actions
-  @Published private var actions: PriorityQueue<Action>
+  private var actions: PriorityQueue<Action>
 
   // count of actions to be generated
-  @Published var ordersCount: Int
+  var ordersCount: Int
 
   // count of actors of each-type below
-  @Published public var generatorsCount: Int
-  @Published public var handlersCount: Int
-  @Published public var buffersCount: Int
+  var generatorsCount: Int
+  var handlersCount: Int
+  var buffersCount: Int
 
   // actors
-  @Published public var generators: [Generator]
-  @Published public var handlers: [Handler]
-  @Published public var buffers: [Buffer]
-  @Published public var rejector: Rejector
+  private(set) var generators: [Generator]
+  private(set) var handlers: [Handler]
+  private(set) var buffers: [Buffer]
+  private(set) var rejector: Rejector
 
   // statistics for TableView
-  @Published var totalRequestsCount: Int
-  @Published var tableResults: [OrderContent]
+  private var totalRequestsCount: Int
+  private(set) var tableResults: [OrderContent]
 
-  // variables and constants for beautifing WaveformView
+  // variables and constants for beautifying WaveformView
   private var baseLine = 0.0
   private let inset = 1.5
   private var step: Double
 
   // MARK: - Inits
 
-  public init(actions: PriorityQueue<Action> = PriorityQueue<Action>(ascending: true),
-              generatorsCount: Int = 3, handlersCount: Int = 3, buffersCount: Int = 3)
-  {
-    self.actions = actions
+  init(generatorsCount: Int = 3, handlersCount: Int = 3, buffersCount: Int = 3) {
+    actions = PriorityQueue<Action>(ascending: true)
     ordersCount = 0
 
     self.generatorsCount = generatorsCount
     self.handlersCount = handlersCount
     self.buffersCount = buffersCount
 
-    var generators = [Generator]()
-    var handlers = [Handler]()
-    var buffers = [Buffer]()
+    let actors = ActorsFactory.makeActors(generatorsCount: generatorsCount,
+                                         handlersCount: handlersCount,
+                                         buffersCount: buffersCount)
 
-    step = 0
-
-    for _ in 0 ..< buffersCount {
-      baseLine += inset
-      let buf = Buffer(baseLine: baseLine)
-      buffers.append(buf)
-      buf.makeStep(stepWidth: step)
-    }
-
-    for _ in 0 ..< handlersCount {
-      baseLine += inset
-      let han = Handler(baseLine: baseLine)
-      handlers.append(han)
-      han.makeStep(stepWidth: step)
-    }
-
-    for _ in 0 ..< generatorsCount {
-      baseLine += inset
-      let gen = Generator(baseLine: baseLine)
-      generators.append(gen)
-      gen.makeStep(stepWidth: step)
-    }
-
-    self.generators = generators
-    self.handlers = handlers
-    self.buffers = buffers
-    rejector = Rejector()
+    generators = actors.generators
+    handlers = actors.handlers
+    buffers = actors.buffers
+    rejector = actors.rejector
 
     totalRequestsCount = 0
     tableResults = []
+    step = 0.0
   }
 
   // MARK: - Start
 
-  public func startAuto() {
+  func startAuto() {
     reset()
     fillWithActions()
-    guard !actions.isEmpty else {
-      return
-    }
+    guard !actions.isEmpty else { return }
 
     while !actions.isEmpty {
       performStep()
     }
 
     tableResults = getTableResults()
+    endGeneration()
   }
 
-  public func startManual() {
+  func startManual() {
     reset()
     fillWithActions()
-    guard !actions.isEmpty else {
-      return
-    }
+    guard !actions.isEmpty else { return }
     performStep()
   }
 
-  public func performStep() {
+  // MARK: - Process functions
+
+  func performStep() {
     if let action = actions.pop() {
       step = action.getTimestamp()
       rejector.makeStep(stepWidth: step)
@@ -129,7 +104,7 @@ public class SimulationPerformer: ObservableObject {
     }
   }
 
-  public func fillWithActions() {
+  private func fillWithActions() {
     for _ in 0 ..< ordersCount {
       guard let generator = generators.randomElement() else {
         return
@@ -144,55 +119,51 @@ public class SimulationPerformer: ObservableObject {
     }
   }
 
-  public func reset() {
-    step = 0
+  func reset() {
     totalRequestsCount = 0
-
     actions.clear()
 
     generators.removeAll()
     handlers.removeAll()
     buffers.removeAll()
-    rejector.chartData.removeAll()
+    rejector.clear()
+
     tableResults.removeAll()
-
     baseLine = 0.0
+    step = 0.0
+    
+    let actors = ActorsFactory.makeActors(generatorsCount: generatorsCount,
+                                         handlersCount: handlersCount,
+                                         buffersCount: buffersCount)
 
-    for _ in 0 ..< buffersCount {
-      baseLine += inset
-      let buf = Buffer(baseLine: baseLine)
-      buffers.append(buf)
-      buf.makeStep(stepWidth: step)
-    }
-
-    for _ in 0 ..< handlersCount {
-      baseLine += inset
-      let han = Handler(baseLine: baseLine)
-      handlers.append(han)
-      han.makeStep(stepWidth: step)
-    }
-
-    for _ in 0 ..< generatorsCount {
-      baseLine += inset
-      let gen = Generator(baseLine: baseLine)
-      generators.append(gen)
-      gen.makeStep(stepWidth: step)
-    }
+    generators = actors.generators
+    handlers = actors.handlers
+    buffers = actors.buffers
   }
 
-  public func getTableResults() -> [OrderContent] {
+  // MARK: - End
+
+  func getTableResults() -> [OrderContent] {
     var contents = [OrderContent]()
     OrderContent.totalOrdersCount = ordersCount
 
     for i in 0 ..< generators.count {
       let currentGen = generators[i]
-      let c = OrderContent(generator: i,
+      let content = OrderContent(generator: i,
                            handledOrdersCount: currentGen.acceptedOrders,
                            avProcessingTime: currentGen.handlingTimes.average,
                            avInBufferTime: currentGen.inBufferTimes.average,
                            rejectCount: currentGen.rejectedRequests)
-      contents.append(c)
+      contents.append(content)
     }
     return contents
+  }
+
+  private func endGeneration() {
+    step += Double.generateTimeForAction()
+    generators.forEach { $0.makeStep(stepWidth: step) }
+    handlers.forEach { $0.makeStep(stepWidth: step) }
+    buffers.forEach { $0.makeStep(stepWidth: step) }
+    rejector.makeStep(stepWidth: step)
   }
 }
