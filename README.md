@@ -1,4 +1,4 @@
-# Queueing System Simulation project
+# Queueing System Simulation macOS app project
 Приложение является симуляцией системы массового обслуживания.
 
 ## Характеристики системы
