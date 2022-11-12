@@ -7,14 +7,14 @@
 
 import Foundation
 
-enum Mode: String, CaseIterable {
+enum AppMode: String, CaseIterable {
   case auto = "Auto"
   case manual = "Manual"
 }
 
 final class AppState: ObservableObject {
   @Published var simulation = SimulationPerformer()
-  @Published var appMode: Mode? = .auto
+  @Published var appMode: AppMode? = .auto
   @Published var isStarted = false
   @Published var ordersCount = 0 {
     willSet {
@@ -23,5 +23,7 @@ final class AppState: ObservableObject {
       }
     }
   }
+
+  // TODO: Get rid of explicit view updater
   @Published var kostyul = false
 }

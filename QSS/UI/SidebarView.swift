@@ -13,7 +13,7 @@ struct SidebarView: View {
   var body: some View {
     List(selection: $appState.appMode) {
       Section {
-        ForEach(Mode.allCases, id: \.self) {
+        ForEach(AppMode.allCases, id: \.self) {
           Text($0.rawValue)
         }
       } header: {
