@@ -28,6 +28,7 @@
 		2D43853D2917E33F00267EB9 /* WaveformConvertible.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2D43853C2917E33F00267EB9 /* WaveformConvertible.swift */; };
 		2DAE5D73291AFFDB003A4417 /* WaveformView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2DAE5D72291AFFDB003A4417 /* WaveformView.swift */; };
 		2DBAA3C22920366B00CAFE89 /* ActorsFactory.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2DBAA3C12920366B00CAFE89 /* ActorsFactory.swift */; };
+		2DBAA3C52920E81200CAFE89 /* SimulationResult.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2DBAA3C42920E81200CAFE89 /* SimulationResult.swift */; };
 		2DD6E4E62907FE0300D1AF41 /* QSSApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2DD6E4E52907FE0300D1AF41 /* QSSApp.swift */; };
 		2DD6E4EA2907FE0300D1AF41 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 2DD6E4E92907FE0300D1AF41 /* Assets.xcassets */; };
 		2DD6E4ED2907FE0300D1AF41 /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 2DD6E4EC2907FE0300D1AF41 /* Preview Assets.xcassets */; };
@@ -56,6 +57,7 @@
 		2D43853C2917E33F00267EB9 /* WaveformConvertible.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WaveformConvertible.swift; sourceTree = "<group>"; };
 		2DAE5D72291AFFDB003A4417 /* WaveformView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WaveformView.swift; sourceTree = "<group>"; };
 		2DBAA3C12920366B00CAFE89 /* ActorsFactory.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ActorsFactory.swift; sourceTree = "<group>"; };
+		2DBAA3C42920E81200CAFE89 /* SimulationResult.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SimulationResult.swift; sourceTree = "<group>"; };
 		2DD6E4E22907FE0300D1AF41 /* QSS.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = QSS.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		2DD6E4E52907FE0300D1AF41 /* QSSApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = QSSApp.swift; sourceTree = "<group>"; };
 		2DD6E4E92907FE0300D1AF41 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
@@ -94,6 +96,7 @@
 			children = (
 				2D4385232912FE2200267EB9 /* actors */,
 				2D43851A2912FE1D00267EB9 /* actions */,
+				2DBAA3C42920E81200CAFE89 /* SimulationResult.swift */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -266,6 +269,7 @@
 				2DAE5D73291AFFDB003A4417 /* WaveformView.swift in Sources */,
 				2D43853D2917E33F00267EB9 /* WaveformConvertible.swift in Sources */,
 				2D06CAC0290BDC0900B33482 /* Menus.swift in Sources */,
+				2DBAA3C52920E81200CAFE89 /* SimulationResult.swift in Sources */,
 				2D06CABA290BD59B00B33482 /* ContentView.swift in Sources */,
 				2D4385222912FE1D00267EB9 /* Action.swift in Sources */,
 				2DBAA3C22920366B00CAFE89 /* ActorsFactory.swift in Sources */,

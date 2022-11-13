@@ -27,17 +27,17 @@ final class SimulationPerformer {
   private(set) var rejector: Rejector
 
   // statistics for TableView
-  private var totalRequestsCount: Int
-  private(set) var tableResults: [OrderContent]
+  private(set) var simulationResult: SimulationResult
 
   // variables and constants for beautifying WaveformView
-  private var baseLine = 0.0
-  private let inset = 1.5
+  private var baseLine: Double
+  private let inset: Double
   private var step: Double
 
   // MARK: - Inits
 
-  init(generatorsCount: Int = 3, handlersCount: Int = 3, buffersCount: Int = 3) {
+  init(generatorsCount: Int = 3, handlersCount: Int = 3, buffersCount: Int = 3,
+       baseLine: Double = 0.0, inset: Double = 1.5) {
     actions = PriorityQueue<Action>(ascending: true)
     ordersCount = 0
 
@@ -54,9 +54,10 @@ final class SimulationPerformer {
     buffers = actors.buffers
     rejector = actors.rejector
 
-    totalRequestsCount = 0
-    tableResults = []
+    self.baseLine = baseLine
+    self.inset = inset
     step = 0.0
+    simulationResult = SimulationResult(generatorResults: [], handlerResults: [])
   }
 
   // MARK: - Start
@@ -70,7 +71,7 @@ final class SimulationPerformer {
       performStep()
     }
 
-    tableResults = getTableResults()
+    simulationResult = SimulationResultFactory.makeResult(ordersCount, generators, handlers)
     endGeneration()
   }
 
@@ -112,7 +113,7 @@ final class SimulationPerformer {
       generator.remainingActions += 1
       var timestamp = generator.lastActionTimestamp
 
-      timestamp += Double.generateTimeForAction()
+      timestamp += Double.generateTimeForAction(for: .generator)
       actions.push(GeneratorAction(timestamp, generator, self))
 
       generator.lastActionTimestamp = timestamp
@@ -120,7 +121,6 @@ final class SimulationPerformer {
   }
 
   func reset() {
-    totalRequestsCount = 0
     actions.clear()
 
     generators.removeAll()
@@ -128,7 +128,7 @@ final class SimulationPerformer {
     buffers.removeAll()
     rejector.clear()
 
-    tableResults.removeAll()
+    simulationResult.clear()
     baseLine = 0.0
     step = 0.0
     
@@ -142,25 +142,9 @@ final class SimulationPerformer {
   }
 
   // MARK: - End
-
-  func getTableResults() -> [OrderContent] {
-    var contents = [OrderContent]()
-    OrderContent.totalOrdersCount = ordersCount
-
-    for i in 0 ..< generators.count {
-      let currentGen = generators[i]
-      let content = OrderContent(generator: i,
-                           handledOrdersCount: currentGen.acceptedOrders,
-                           avProcessingTime: currentGen.handlingTimes.average,
-                           avInBufferTime: currentGen.inBufferTimes.average,
-                           rejectCount: currentGen.rejectedRequests)
-      contents.append(content)
-    }
-    return contents
-  }
-
+  
   private func endGeneration() {
-    step += Double.generateTimeForAction()
+    step += Double.generateTimeForAction(for: .generator)
     generators.forEach { $0.makeStep(stepWidth: step) }
     handlers.forEach { $0.makeStep(stepWidth: step) }
     buffers.forEach { $0.makeStep(stepWidth: step) }

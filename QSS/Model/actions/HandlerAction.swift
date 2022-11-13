@@ -39,7 +39,7 @@ final class HandlerAction: Action {
 
         buffer.makeStep(.down, stepWidth: timestamp)
 
-        let time = timestamp + Double.generateTimeForAction()
+        let time = timestamp + Double.generateTimeForAction(for: .handler)
         handler.usageTime += (time - timestamp)
         generator.acceptedOrders += 1
         generator.inBufferTimes.append(timestamp - buffer.waitingFrom)

@@ -7,10 +7,14 @@
 
 import Foundation
 
-// used for generating time with logarithmic distribution
+// used for generating time with normal and logarithmic distribution
 extension Double {
-  static func generateTimeForAction() -> Double {
-    -log(1 - Double.random(in: 0.2 ..< 1))
+  static func generateTimeForAction(for actor: Actor) -> Double {
+    let num = Double.random(in: 0.2 ..< 1)
+    switch actor {
+      case .generator: return num
+      default: return -log(1 - num)
+    }
   }
 }
 

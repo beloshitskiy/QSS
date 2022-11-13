@@ -25,7 +25,6 @@ final class GeneratorAction: Action {
   override func getTimestamp() -> Double { timestamp }
   
   override func doAction() -> Action? {
-    generator.remainingActions -= 1
     generator.makeStep(.up, stepWidth: timestamp)
     generator.makeStep(.down, stepWidth: timestamp)
 
@@ -33,7 +32,7 @@ final class GeneratorAction: Action {
       handler.isBusy = true
       handler.makeStep(.up, stepWidth: timestamp)
 
-      let time = timestamp + Double.generateTimeForAction()
+      let time = timestamp + Double.generateTimeForAction(for: .generator)
       handler.usageTime += (time - timestamp)
       generator.acceptedOrders += 1
       generator.handlingTimes.append(time - timestamp)
