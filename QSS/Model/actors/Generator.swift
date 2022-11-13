@@ -54,7 +54,9 @@ final class Generator: WaveformConvertible {
     let newPoint: WaveformPoint
     switch step {
       case .straight: newPoint = lastPoint.y == up.y ? up : down
-      case .up: newPoint = up
+      case .up:
+        newPoint = up
+        remainingActions -= 1
       case .down: newPoint = down
     }
     

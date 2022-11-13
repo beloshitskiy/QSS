@@ -7,28 +7,12 @@
 
 import SwiftUI
 
-public struct OrderContent: Identifiable {
-  public let id = UUID()
-  static var totalOrdersCount = 0
-
-  let generator: Int
-  var handledOrdersCount: Int
-  var avProcessingTime: Double
-  var avInBufferTime: Double
-  var rejectCount: Int
-
-  var rejectPercent: Double {
-    guard OrderContent.totalOrdersCount != 0 else { return 0.0 }
-    return Double(rejectCount) / Double(OrderContent.totalOrdersCount) * 100
-  }
-}
-
 struct TableView: View {
   @EnvironmentObject var appState: AppState
 
   var body: some View {
     VStack {
-      Table(appState.simulation.tableResults) {
+      Table(appState.simulation.simulationResult.generatorResults) {
         TableColumn("Generators") {
           Text("№\($0.generator + 1)")
         }
@@ -43,6 +27,15 @@ struct TableView: View {
         }
         TableColumn("Reject %") {
           Text($0.rejectPercent, format: .number)
+        }
+      }
+
+      Table(appState.simulation.simulationResult.handlerResults) {
+        TableColumn("Handler") {
+          Text("№\($0.handler + 1)")
+        }
+        TableColumn("Usage coefficient") {
+          Text($0.usageCoefficient, format: .number)
         }
       }
 

@@ -12,10 +12,12 @@ final class Handler: WaveformConvertible {
   
   var isBusy: Bool
   var usageTime: Double
+  var handledOrdersCount: Int
   
   init(baseLine: Double) {
     isBusy = false
     usageTime = 0.0
+    handledOrdersCount = 0
     self.baseLine = baseLine
     chartData = []
   }
@@ -37,7 +39,9 @@ final class Handler: WaveformConvertible {
     switch step {
       case .straight: newPoint = lastPoint.y == up.y ? up : down
       case .up: newPoint = up
-      case .down: newPoint = down
+      case .down:
+        newPoint = down
+        handledOrdersCount += 1
     }
     
     chartData.append(newPoint)
