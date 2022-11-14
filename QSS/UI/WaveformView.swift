@@ -13,26 +13,26 @@ struct WaveformView: View {
   var body: some View {
     VStack {
       Chart {
-        ForEach(appState.simulation.generators) { gen in
-          ForEach(gen.chartData) {
-            LineMark($0, str: num(gen))
+        ForEach(appState.simulation.generators) { generator in
+          ForEach(generator.chartData) {
+            LineMark($0, of: num(generator))
               .foregroundStyle(by: .value("Actor", "Generators"))
           }
         }
-        ForEach(appState.simulation.handlers) { han in
-          ForEach(han.chartData) {
-            LineMark($0, str: num(han))
+        ForEach(appState.simulation.handlers) { handler in
+          ForEach(handler.chartData) {
+            LineMark($0, of: num(handler))
               .foregroundStyle(by: .value("Actor", "Handlers"))
           }
         }
-        ForEach(appState.simulation.buffers) { buf in
-          ForEach(buf.chartData) {
-            LineMark($0, str: num(buf))
+        ForEach(appState.simulation.buffers) { buffer in
+          ForEach(buffer.chartData) {
+            LineMark($0, of: num(buffer))
               .foregroundStyle(by: .value("Actor", "Buffers"))
           }
         }
         ForEach(appState.simulation.rejector.chartData) {
-          LineMark($0, str: "Rejector")
+          LineMark($0, of: "Rejector")
             .foregroundStyle(by: .value("Actor", "Rejector"))
         }
       }
@@ -52,11 +52,11 @@ struct WaveformView: View {
   private func num(_ actor: any WaveformConvertible) -> String {
     switch actor {
     case is Generator:
-      return "Generator\(String(describing: appState.simulation.generators.firstIndex { $0 === actor as? Generator }))"
+      return "Generator\(appState.simulation.generators.firstIndex { $0 === actor as? Generator } ?? 0)"
     case is Handler:
-      return "Handler\(String(describing: appState.simulation.handlers.firstIndex { $0 === actor as? Handler }))"
+      return "Handler\(appState.simulation.handlers.firstIndex { $0 === actor as? Handler } ?? 0)"
     case is Buffer:
-      return "Buffer\(String(describing: appState.simulation.buffers.firstIndex { $0 === actor as? Buffer }))"
+      return "Buffer\(appState.simulation.buffers.firstIndex { $0 === actor as? Buffer } ?? 0)"
     default: return ""
     }
   }
@@ -70,15 +70,9 @@ struct WaveformView_Previews: PreviewProvider {
 }
 
 extension LineMark {
-  init(_ wPoint: WaveformPoint) {
-    self.init(x: .value("x", wPoint.x),
-              y: .value("y", wPoint.y),
-              series: .value("Actor", wPoint.actor))
-  }
-
-  init(_ wPoint: WaveformPoint, str: String) {
-    self.init(x: .value("x", wPoint.x),
-              y: .value("y", wPoint.y),
-              series: .value("Actor", str))
+  init(_ point: WaveformPoint, of actor: String) {
+    self.init(x: .value("x", point.x),
+              y: .value("y", point.y),
+              series: .value("Actor", actor))
   }
 }

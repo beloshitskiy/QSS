@@ -42,6 +42,9 @@ final class ActorsFactory {
       generator.makeStep(stepWidth: step)
     }
 
-    return (generators, handlers, buffers, Rejector())
+    let rejector = Rejector()
+    rejector.makeStep(stepWidth: step)
+
+    return (generators, handlers, buffers, rejector)
   }
 }

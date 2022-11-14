@@ -46,8 +46,8 @@ final class SimulationPerformer {
     self.buffersCount = buffersCount
 
     let actors = ActorsFactory.makeActors(generatorsCount: generatorsCount,
-                                         handlersCount: handlersCount,
-                                         buffersCount: buffersCount)
+                                          handlersCount: handlersCount,
+                                          buffersCount: buffersCount)
 
     generators = actors.generators
     handlers = actors.handlers
@@ -126,23 +126,23 @@ final class SimulationPerformer {
     generators.removeAll()
     handlers.removeAll()
     buffers.removeAll()
-    rejector.clear()
 
-    simulationResult.clear()
-    baseLine = 0.0
-    step = 0.0
-    
     let actors = ActorsFactory.makeActors(generatorsCount: generatorsCount,
-                                         handlersCount: handlersCount,
-                                         buffersCount: buffersCount)
+                                          handlersCount: handlersCount,
+                                          buffersCount: buffersCount)
 
     generators = actors.generators
     handlers = actors.handlers
     buffers = actors.buffers
+    rejector = actors.rejector
+
+    baseLine = 0.0
+    step = 0.0
+    simulationResult.clear()
   }
 
   // MARK: - End
-  
+
   private func endGeneration() {
     step += Double.generateTimeForAction(for: .generator)
     generators.forEach { $0.makeStep(stepWidth: step) }
