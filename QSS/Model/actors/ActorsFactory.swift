@@ -35,9 +35,9 @@ final class ActorsFactory {
       handler.makeStep(stepWidth: step)
     }
 
-    for _ in 0 ..< generatorsCount {
+    for i in 0 ..< generatorsCount {
       baseLine += inset
-      let generator = Generator(baseLine: baseLine)
+      let generator = Generator(priority: i, baseLine: baseLine)
       generators.append(generator)
       generator.makeStep(stepWidth: step)
     }

@@ -11,13 +11,16 @@ final class HandlerAction: Action {
   private let timestamp: Double
 
   private let handler: Handler
+//  private let orderPriority: Int
   private let generator: Generator
   private let performer: SimulationPerformer
 
   init(_ timestamp: Double, _ handler: Handler,
+//       orderPriority: Int,
        _ generator: Generator, _ helper: SimulationPerformer) {
     self.timestamp = timestamp
     self.handler = handler
+//    self.orderPriority = orderPriority
     self.generator = generator
     performer = helper
 
@@ -52,10 +55,25 @@ final class HandlerAction: Action {
 
   // busy buffer finder
   private var optBusyBuffer: Buffer? {
-    for buf in performer.buffers where buf.isBusy {
+    let sortedBuffers = performer.buffers.sorted(by: <)
+    
+    for buf in sortedBuffers where buf.isBusy {
       return buf
     }
 
     return nil
+  }
+}
+
+fileprivate extension Buffer {
+   static func < (lhs: Buffer, rhs: Buffer) -> Bool {
+     if let lpriority = lhs.currentGenerator?.priority,
+        let rpriority = rhs.currentGenerator?.priority {
+       return lpriority < rpriority
+     } else if lhs.isBusy {
+       return true
+     } else {
+       return false
+     }
   }
 }

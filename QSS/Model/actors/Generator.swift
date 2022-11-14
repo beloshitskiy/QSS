@@ -9,6 +9,7 @@ import Foundation
 
 final class Generator: WaveformConvertible {
   let id = UUID()
+  let priority: Int
   
   // for correct time usage
   var remainingActions: Int
@@ -26,7 +27,8 @@ final class Generator: WaveformConvertible {
   var inBufferTimes: [Double]
   var handlingTimes: [Double]
   
-  init(baseLine: Double) {
+  init(priority: Int, baseLine: Double) {
+    self.priority = priority
     remainingActions = 0
     lastActionTimestamp = 0.0
     circlePointer = 0
