@@ -32,8 +32,4 @@ final class Rejector: WaveformConvertible {
     
     chartData.append(newPoint)
   }
-  
-  func clear() {
-    chartData.removeAll()
-  }
 }
