@@ -2,7 +2,7 @@
 //  SimulationResult.swift
 //  QSS
 //
-//  Created by Denis Beloshitskiy on 11/13/22.
+//  Created by Denis Beloshitskiy
 //
 
 import Foundation
@@ -53,6 +53,7 @@ final class SimulationResultFactory {
                          _ handlers: [Handler]) -> SimulationResult {
     
     var generatorResults = [GeneratorResult]()
+    GeneratorResult.totalOrdersCount = ordersCount
     
     for i in 0 ..< generators.count {
       let currentGenerator = generators[i]
