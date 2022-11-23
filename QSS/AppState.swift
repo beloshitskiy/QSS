@@ -1,10 +1,3 @@
-//
-//  AppState.swift
-//  QSS
-//
-//  Created by Denis Beloshitskiy
-//
-
 import Foundation
 
 enum AppMode: String, CaseIterable {

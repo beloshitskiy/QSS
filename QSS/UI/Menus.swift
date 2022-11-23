@@ -1,11 +1,3 @@
-//
-//  Menus.swift
-//  QSS
-//
-//  Created by Denis Beloshitskiy
-//
-
-import Foundation
 import SwiftUI
 
 struct Menus: Commands {

@@ -1,10 +1,3 @@
-//
-//  SidebarView.swift
-//  QSS
-//
-//  Created by Denis Beloshitskiy
-//
-
 import SwiftUI
 
 struct SidebarView: View {

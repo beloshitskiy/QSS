@@ -1,10 +1,3 @@
-//
-//  Generator.swift
-//  QSS
-//
-//  Created by Denis Beloshitskiy
-//
-
 import Foundation
 
 final class Generator: WaveformConvertible {

@@ -1,10 +1,3 @@
-//
-//  QSSApp.swift
-//  QSS
-//
-//  Created by Denis Beloshitskiy
-//
-
 import SwiftUI
 
 @main

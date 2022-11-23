@@ -1,10 +1,3 @@
-//
-//  ControlView.swift
-//  QSS
-//
-//  Created by Denis Beloshitskiy
-//
-
 import SwiftUI
 
 struct ControlView: View {

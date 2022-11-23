@@ -1,10 +1,3 @@
-//
-//  Buffer.swift
-//  QSS
-//
-//  Created by Denis Beloshitskiy
-//
-
 import Foundation
 
 final class Buffer: WaveformConvertible {
