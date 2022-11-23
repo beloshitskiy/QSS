@@ -11,7 +11,7 @@ extension Double {
   }
 }
 
-// used for convenient calculating of average and "dispersion" value of elements
+// used for convenient calculating of average and "dispersion" values of elements
 extension [Double] {
   var average: Double {
     guard !self.isEmpty else { return 0.0 }
