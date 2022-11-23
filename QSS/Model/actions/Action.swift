@@ -1,12 +1,3 @@
-//
-//  Action.swift
-//  QSS
-//
-//  Created by Denis Beloshitskiy
-//
-
-import Foundation
-
 class Action: Comparable {
   private var value: Double
 

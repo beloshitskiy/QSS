@@ -1,10 +1,3 @@
-//
-//  SimulationResult.swift
-//  QSS
-//
-//  Created by Denis Beloshitskiy
-//
-
 import Foundation
 
 struct SimulationResult {
@@ -78,12 +71,5 @@ enum SimulationResultFactory {
     }
     
     return SimulationResult(generatorResults: generatorResults, handlerResults: handlerResults)
-  }
-}
-
-private extension [Double] {
-  var dispersion: Double {
-    guard let max = self.max(), let min = self.min() else { return 0.0 }
-    return max - min
   }
 }

@@ -1,26 +1,14 @@
-//
-//  HandlerAction.swift
-//  QSS
-//
-//  Created by Denis Beloshitskiy
-//
-
-import Foundation
-
 final class HandlerAction: Action {
   private let timestamp: Double
 
   private let handler: Handler
-//  private let orderPriority: Int
   private let generator: Generator
   private let performer: SimulationPerformer
 
   init(_ timestamp: Double, _ handler: Handler,
-//       orderPriority: Int,
        _ generator: Generator, _ helper: SimulationPerformer) {
     self.timestamp = timestamp
     self.handler = handler
-//    self.orderPriority = orderPriority
     self.generator = generator
     performer = helper
 

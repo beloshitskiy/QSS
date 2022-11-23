@@ -1,12 +1,3 @@
-//
-//  GeneratorAction.swift
-//  QSS
-//
-//  Created by Denis Beloshitskiy
-//
-
-import Foundation
-
 final class GeneratorAction: Action {
   private let timestamp: Double
   

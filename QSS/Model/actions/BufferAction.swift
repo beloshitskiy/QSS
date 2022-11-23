@@ -1,12 +1,3 @@
-//
-//  BufferAction.swift
-//  QSS
-//
-//  Created by Denis Beloshitskiy
-//
-
-import Foundation
-
 final class BufferAction: Action {
   private let timestamp: Double
   

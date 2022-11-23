@@ -1,10 +1,3 @@
-//
-//  TableView.swift
-//  QSS
-//
-//  Created by Denis Beloshitskiy
-//
-
 import SwiftUI
 
 struct TableView: View {

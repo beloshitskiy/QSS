@@ -1,10 +1,3 @@
-//
-//  ContentView.swift
-//  QSS
-//
-//  Created by Denis Beloshitskiy
-//
-
 import SwiftUI
 
 struct ContentView: View {

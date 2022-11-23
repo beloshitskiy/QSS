@@ -1,12 +1,3 @@
-//
-//  ActorsFactory.swift
-//  QSS
-//
-//  Created by Denis Beloshitskiy
-//
-
-import Foundation
-
 final class ActorsFactory {
   public static func makeActors(generatorsCount: Int,
                                 handlersCount: Int,

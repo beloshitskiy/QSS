@@ -1,10 +1,3 @@
-//
-//  WaveformView.swift
-//  QSS
-//
-//  Created by Denis Beloshitskiy
-//
-
 import Charts
 import SwiftUI
 

@@ -1,10 +1,3 @@
-//
-//  Handler.swift
-//  QSS
-//
-//  Created by Denis Beloshitskiy
-//
-
 import Foundation
 
 final class Handler: WaveformConvertible {

@@ -1,10 +1,3 @@
-//
-//  Toolbar.swift
-//  QSS
-//
-//  Created by Denis Beloshitskiy
-//
-
 import SwiftUI
 
 struct Toolbar: CustomizableToolbarContent {
