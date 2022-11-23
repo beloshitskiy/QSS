@@ -20,6 +20,7 @@ struct SidebarView: View {
         Text("Mode")
       }
     }
+    .disabled(appState.ordersCount > 500)
     .listStyle(.sidebar)
   }
 }

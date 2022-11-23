@@ -23,6 +23,7 @@ final class Generator: WaveformConvertible {
   // for TableView report
   var acceptedOrders: Int
   var rejectedRequests: Int
+  var totalOrders: Int { acceptedOrders + rejectedRequests }
   
   var inBufferTimes: [Double]
   var handlingTimes: [Double]

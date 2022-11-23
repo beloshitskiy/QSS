@@ -38,6 +38,7 @@ struct WaveformView: View {
         }
       }
       .chartYAxisLabel("Time passed")
+      .chartXAxis {}
       .chartYAxis {
         AxisMarks(values: .stride(by: sim.inset)) {
           let value = $0.as(Double.self) ?? 0.0
