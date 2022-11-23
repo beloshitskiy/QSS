@@ -20,10 +20,13 @@ final class HandlerAction: Action {
 
   override func doAction() -> Action? {
     handler.isBusy = false
+    performer.currentPriority = handler.currentOrderPriority
+    handler.currentOrderPriority = nil
     handler.makeStep(.down, stepWidth: timestamp)
 
     if let buffer = optBusyBuffer {
       handler.isBusy = true
+      handler.currentOrderPriority = buffer.currentGenerator?.priority
       handler.makeStep(.up, stepWidth: timestamp)
       if let generator = buffer.currentGenerator {
         buffer.currentGenerator = nil

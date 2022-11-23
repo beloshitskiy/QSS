@@ -6,6 +6,7 @@ final class Handler: WaveformConvertible {
   var isBusy: Bool
   var usageTime: Double
   var handledOrdersCount: Int
+  var currentOrderPriority: Int?
   
   init(baseLine: Double) {
     isBusy = false

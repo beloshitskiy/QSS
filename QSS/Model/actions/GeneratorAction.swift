@@ -21,6 +21,7 @@ final class GeneratorAction: Action {
 
     if let handler = optHandler {
       handler.isBusy = true
+      handler.currentOrderPriority = generator.priority
       handler.makeStep(.up, stepWidth: timestamp)
       
       if performer.currentPriority == nil {

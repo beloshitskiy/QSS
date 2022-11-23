@@ -134,6 +134,7 @@ final class SimulationPerformer {
     baseLine = 0.0
     step = 0.0
     simulationResult.clear()
+    currentPriority = nil
   }
 
   // MARK: - End
@@ -144,5 +145,6 @@ final class SimulationPerformer {
     handlers.forEach { $0.makeStep(stepWidth: step) }
     buffers.forEach { $0.makeStep(stepWidth: step) }
     rejector.makeStep(stepWidth: step)
+    currentPriority = nil
   }
 }
