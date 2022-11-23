@@ -31,7 +31,7 @@ final class SimulationPerformer {
 
   // variables and constants for beautifying WaveformView
   private var baseLine: Double
-  private let inset: Double
+  let inset: Double
   private var step: Double
 
   // MARK: - Inits
