@@ -66,14 +66,34 @@ final class GeneratorAction: Action {
   
   // free buffer finder
   private var optFreeBuffer: Buffer? {
-    guard !performer.buffers.allSatisfy({ $0.isBusy }) else {
-      return nil
-    }
-
     for buf in performer.buffers where !buf.isBusy {
       return buf
     }
+    
+    if let lowestPriorityBuffer = performer.buffers.sorted(by: <).last,
+       let lowestPriority = lowestPriorityBuffer.currentGenerator?.priority {
+      if generator.priority < lowestPriority {
+        performer.rejector.makeStep(.up, stepWidth: timestamp)
+        performer.rejector.makeStep(.down, stepWidth: timestamp)
+        lowestPriorityBuffer.currentGenerator?.rejectedRequests += 1
+        lowestPriorityBuffer.currentGenerator = generator
+        lowestPriorityBuffer.waitingFrom = timestamp
+      }
+    }
 
     return nil
+  }
+}
+
+private extension Buffer {
+  static func < (lhs: Buffer, rhs: Buffer) -> Bool {
+    if let lpriority = lhs.currentGenerator?.priority,
+       let rpriority = rhs.currentGenerator?.priority {
+      return lpriority < rpriority
+    } else if lhs.isBusy {
+      return true
+    } else {
+      return false
+    }
   }
 }
