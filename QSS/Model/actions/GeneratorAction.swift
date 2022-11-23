@@ -22,6 +22,10 @@ final class GeneratorAction: Action {
     if let handler = optHandler {
       handler.isBusy = true
       handler.makeStep(.up, stepWidth: timestamp)
+      
+      if performer.currentPriority == nil {
+        performer.currentPriority = generator.priority
+      }
 
       let time = timestamp + Double.generateTimeForAction(for: .generator)
       handler.usageTime += (time - timestamp)

@@ -17,6 +17,9 @@ final class SimulationPerformer {
   private(set) var handlers: [Handler]
   private(set) var buffers: [Buffer]
   private(set) var rejector: Rejector
+  
+  // current order priority
+  var currentPriority: Int?
 
   // statistics for TableView
   private(set) var simulationResult: SimulationResult

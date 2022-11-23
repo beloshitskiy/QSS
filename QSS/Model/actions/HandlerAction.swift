@@ -43,25 +43,16 @@ final class HandlerAction: Action {
 
   // busy buffer finder
   private var optBusyBuffer: Buffer? {
-    let sortedBuffers = performer.buffers.sorted(by: <)
-    
-    for buf in sortedBuffers where buf.isBusy {
+    for buf in performer.buffers where
+      buf.isBusy && buf.currentGenerator?.priority == performer.currentPriority {
+      return buf
+    }
+
+    for buf in performer.buffers where buf.isBusy {
+      performer.currentPriority = buf.currentGenerator?.priority
       return buf
     }
 
     return nil
-  }
-}
-
-fileprivate extension Buffer {
-   static func < (lhs: Buffer, rhs: Buffer) -> Bool {
-     if let lpriority = lhs.currentGenerator?.priority,
-        let rpriority = rhs.currentGenerator?.priority {
-       return lpriority < rpriority
-     } else if lhs.isBusy {
-       return true
-     } else {
-       return false
-     }
   }
 }
