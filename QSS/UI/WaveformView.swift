@@ -30,7 +30,14 @@ struct WaveformView: View {
             .foregroundStyle(by: .value("Actor", "Rejector"))
         }
       }
-      .chartYAxisLabel("Time passed")
+      .chartXAxisLabel(alignment: .center) {
+        if let priority = appState.simulation.currentPriority {
+          Text("Current priority = \(priority + 1)")
+        } else {
+          Text("")
+        }
+      }
+      .chartYAxisLabel {}
       .chartXAxis {}
       .chartYAxis {
         AxisMarks(values: .stride(by: sim.inset)) {
@@ -76,14 +83,22 @@ struct WaveformView: View {
     case sim.buffers[0].baseLine ..< sim.handlers[0].baseLine:
       let cur = sim.buffers[0].baseLine
       for i in 0 ..< sim.buffersCount where cur + (defaultInset * Double(i)) == inset {
-        return "Buffer №\(i + 1)"
+        var res = "Buffer №\(i + 1)"
+        if let currentOrder = sim.buffers[i].currentGenerator?.priority {
+          res += " {curOrd = \(currentOrder + 1)}"
+        }
+        return res
       }
 
     // Handlers
     case sim.handlers[0].baseLine ..< sim.generators[0].baseLine:
       let cur = sim.handlers[0].baseLine
       for i in 0 ..< sim.handlersCount where cur + (defaultInset * Double(i)) == inset {
-        return "Handler №\(i + 1)"
+        var res = "Handler №\(i + 1)"
+        if let currentOrder = sim.handlers[i].currentOrderPriority {
+          res += " {curOrd = \(currentOrder + 1)}"
+        }
+        return res
       }
 
     // Generators
