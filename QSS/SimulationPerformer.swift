@@ -71,7 +71,7 @@ final class SimulationPerformer {
       performStep()
     }
 
-    simulationResult = SimulationResultFactory.makeResult(ordersCount, generators, handlers)
+    simulationResult = SimulationResultFactory.makeResult(step, generators, handlers)
     endGeneration()
   }
 

@@ -8,8 +8,6 @@
 import Foundation
 
 struct SimulationResult {
-  static var totalOrdersCount = 0
-  
   private(set) var generatorResults: [GeneratorResult]
   private(set) var handlerResults: [HandlerResult]
   
@@ -22,61 +20,70 @@ struct SimulationResult {
 struct HandlerResult: Identifiable {
   let id = UUID()
   
-  let handler: Int
+  let handlerNumber: Int
   let handledOrdersCount: Int
-  static var totalHandledOrdersCount = 0
+  static var totalTime = 0.0
   
   var usageCoefficient: Double {
-    guard HandlerResult.totalHandledOrdersCount != 0 else { return 0.0 }
-    return Double(handledOrdersCount) / Double(HandlerResult.totalHandledOrdersCount)
+    guard HandlerResult.totalTime != 0 else { return 0.0 }
+    return Double(handledOrdersCount) / Double(HandlerResult.totalTime)
   }
 }
 
 struct GeneratorResult: Identifiable {
   let id = UUID()
-  static var totalOrdersCount = 0
 
-  let generator: Int
-  let handledOrdersCount: Int
+  let generatorNumber: Int
+  let generatedOrdersCount: Int
+  let rejectCount: Int
+  
+  var rejectProbability: Double {
+    guard generatedOrdersCount != 0 else { return 0.0 }
+    return Double(rejectCount) / Double(generatedOrdersCount)
+  }
+  
+  var totalAverageOrderTime: Double { avProcessingTime + avInBufferTime }
   let avProcessingTime: Double
   let avInBufferTime: Double
-  let rejectCount: Int
-
-  var rejectPercent: Double {
-    guard GeneratorResult.totalOrdersCount != 0 else { return 0.0 }
-    return Double(rejectCount) / Double(GeneratorResult.totalOrdersCount) * 100
-  }
+  
+  let bufferDispersion: Double
+  let processingDispersion: Double
 }
 
-final class SimulationResultFactory {
-  static func makeResult(_ ordersCount: Int, _ generators: [Generator],
+enum SimulationResultFactory {
+  static func makeResult(_ totalTime: Double, _ generators: [Generator],
                          _ handlers: [Handler]) -> SimulationResult {
-    
     var generatorResults = [GeneratorResult]()
-    GeneratorResult.totalOrdersCount = ordersCount
     
     for i in 0 ..< generators.count {
       let currentGenerator = generators[i]
-      let result = GeneratorResult(generator: i,
-                           handledOrdersCount: currentGenerator.acceptedOrders,
-                           avProcessingTime: currentGenerator.handlingTimes.average,
-                           avInBufferTime: currentGenerator.inBufferTimes.average,
-                           rejectCount: currentGenerator.rejectedRequests)
+      let result = GeneratorResult(generatorNumber: i + 1,
+                                   generatedOrdersCount: currentGenerator.totalOrders,
+                                   rejectCount: currentGenerator.rejectedRequests,
+                                   avProcessingTime: currentGenerator.handlingTimes.average,
+                                   avInBufferTime: currentGenerator.inBufferTimes.average,
+                                   bufferDispersion: currentGenerator.inBufferTimes.dispersion,
+                                   processingDispersion: currentGenerator.handlingTimes.dispersion)
       generatorResults.append(result)
     }
     
     var handlerResults = [HandlerResult]()
-    HandlerResult.totalHandledOrdersCount = handlers.reduce(into: 0) { result, han in
-      result += han.handledOrdersCount
-    }
+    HandlerResult.totalTime = totalTime
     
     for i in 0 ..< handlers.count {
       let currentHandler = handlers[i]
-      let result = HandlerResult(handler: i,
+      let result = HandlerResult(handlerNumber: i + 1,
                                  handledOrdersCount: currentHandler.handledOrdersCount)
       handlerResults.append(result)
     }
     
     return SimulationResult(generatorResults: generatorResults, handlerResults: handlerResults)
+  }
+}
+
+private extension [Double] {
+  var dispersion: Double {
+    guard let max = self.max(), let min = self.min() else { return 0.0 }
+    return max - min
   }
 }
