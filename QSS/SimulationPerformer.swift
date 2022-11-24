@@ -105,6 +105,7 @@ final class SimulationPerformer {
       guard let generator = generators.randomElement() else {
         return
       }
+      generator.totalOrders += 1
       generator.remainingActions += 1
       var timestamp = generator.lastActionTimestamp
 

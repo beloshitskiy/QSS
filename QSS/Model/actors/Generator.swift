@@ -16,7 +16,7 @@ final class Generator: WaveformConvertible {
   // for TableView report
   var acceptedOrders: Int
   var rejectedRequests: Int
-  var totalOrders: Int { acceptedOrders + rejectedRequests }
+  var totalOrders: Int
   
   var inBufferTimes: [Double]
   var handlingTimes: [Double]
@@ -28,6 +28,7 @@ final class Generator: WaveformConvertible {
     circlePointer = 0
     rejectedRequests = 0
     acceptedOrders = 0
+    totalOrders = 0
     inBufferTimes = []
     handlingTimes = []
     self.baseLine = baseLine

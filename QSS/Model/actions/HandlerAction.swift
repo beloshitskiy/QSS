@@ -20,7 +20,6 @@ final class HandlerAction: Action {
 
   override func doAction() -> Action? {
     handler.isBusy = false
-    performer.currentPriority = handler.currentOrderPriority
     handler.currentOrderPriority = nil
     handler.makeStep(.down, stepWidth: timestamp)
 
