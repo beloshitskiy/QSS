@@ -7,7 +7,7 @@ Objective-C.gitignore & Swift.gitignore
 .idea/
 Preview Content/
 
-.swiftlint.yml
+/.swiftlint.yml
 
 ## User settings
 xcuserdata/
