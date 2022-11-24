@@ -17,7 +17,7 @@ extension [Double] {
     guard !self.isEmpty else { return 0.0 }
     return self.reduce(0, +) / Double(self.count)
   }
-  
+
   var dispersion: Double {
     guard let max = self.max(), let min = self.min() else { return 0.0 }
     return max - min

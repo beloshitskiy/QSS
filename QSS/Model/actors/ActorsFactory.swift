@@ -1,9 +1,11 @@
-final class ActorsFactory {
-  public static func makeActors(generatorsCount: Int,
-                                handlersCount: Int,
-                                buffersCount: Int,
-                                baseLine: Double = 0.0,
-                                inset: Double = 1.5)
+enum ActorsFactory {
+  public static func makeActors(
+    generatorsCount: Int,
+    handlersCount: Int,
+    buffersCount: Int,
+    baseLine: Double = 0.0,
+    inset: Double = 1.5
+  )
     -> (generators: [Generator], handlers: [Handler], buffers: [Buffer], rejector: Rejector) {
     var generators = [Generator]()
     var handlers = [Handler]()

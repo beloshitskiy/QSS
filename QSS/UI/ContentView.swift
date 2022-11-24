@@ -18,7 +18,8 @@ struct ContentView: View {
       maxWidth: .infinity,
       minHeight: 600,
       idealHeight: 800,
-      maxHeight: .infinity)
+      maxHeight: .infinity
+    )
     .navigationTitle(windowTitle)
     .toolbar(id: "mainToolbar") {
       Toolbar()

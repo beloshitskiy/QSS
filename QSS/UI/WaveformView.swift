@@ -52,24 +52,26 @@ struct WaveformView: View {
       ControlView()
     }
     .padding()
-    .frame(minWidth: 500,
-           idealWidth: 750,
-           maxWidth: .infinity,
-           minHeight: 500,
-           idealHeight: 600,
-           maxHeight: .infinity)
+    .frame(
+      minWidth: 500,
+      idealWidth: 750,
+      maxWidth: .infinity,
+      minHeight: 500,
+      idealHeight: 600,
+      maxHeight: .infinity
+    )
   }
 
   private func num(_ actor: any WaveformConvertible) -> String {
     let sim = appState.simulation
     switch actor {
-    case is Generator:
-      return "Generator\(sim.generators.firstIndex { $0 === actor as? Generator } ?? 0)"
-    case is Handler:
-      return "Handler\(sim.handlers.firstIndex { $0 === actor as? Handler } ?? 0)"
-    case is Buffer:
-      return "Buffer\(sim.buffers.firstIndex { $0 === actor as? Buffer } ?? 0)"
-    default: return ""
+      case is Generator:
+        return "Generator\(sim.generators.firstIndex { $0 === actor as? Generator } ?? 0)"
+      case is Handler:
+        return "Handler\(sim.handlers.firstIndex { $0 === actor as? Handler } ?? 0)"
+      case is Buffer:
+        return "Buffer\(sim.buffers.firstIndex { $0 === actor as? Buffer } ?? 0)"
+      default: return ""
     }
   }
 
@@ -77,38 +79,39 @@ struct WaveformView: View {
     let sim = appState.simulation
 
     switch inset {
-    case 0: return "Rejector"
+      case 0: return "Rejector"
 
-    // Buffers
-    case sim.buffers[0].baseLine ..< sim.handlers[0].baseLine:
-      let cur = sim.buffers[0].baseLine
-      for i in 0 ..< sim.buffersCount where cur + (defaultInset * Double(i)) == inset {
-        var res = "Buffer №\(i + 1)"
-        if let currentOrder = sim.buffers[i].currentGenerator?.priority {
-          res += " {curOrd = \(currentOrder + 1)}"
+      // Buffers
+      case sim.buffers[0].baseLine ..< sim.handlers[0].baseLine:
+        let cur = sim.buffers[0].baseLine
+        for i in 0 ..< sim.buffersCount where cur + (defaultInset * Double(i)) == inset {
+          var res = "Buffer №\(i + 1)"
+          if let currentOrder = sim.buffers[i].currentGenerator?.priority {
+            res += " {curOrd = \(currentOrder + 1)}"
+          }
+          return res
         }
-        return res
-      }
 
-    // Handlers
-    case sim.handlers[0].baseLine ..< sim.generators[0].baseLine:
-      let cur = sim.handlers[0].baseLine
-      for i in 0 ..< sim.handlersCount where cur + (defaultInset * Double(i)) == inset {
-        var res = "Handler №\(i + 1)"
-        if let currentOrder = sim.handlers[i].currentOrderPriority {
-          res += " {curOrd = \(currentOrder + 1)}"
+      // Handlers
+      case sim.handlers[0].baseLine ..< sim.generators[0].baseLine:
+        let cur = sim.handlers[0].baseLine
+        for i in 0 ..< sim.handlersCount where cur + (defaultInset * Double(i)) == inset {
+          var res = "Handler №\(i + 1)"
+          if let currentOrder = sim.handlers[i].currentOrderPriority {
+            res += " {curOrd = \(currentOrder + 1)}"
+          }
+          return res
         }
-        return res
-      }
 
-    // Generators
-    case sim.generators[0].baseLine ..< sim.generators[0].baseLine + Double(sim.generatorsCount) * defaultInset:
-      let cur = sim.generators[0].baseLine
-      for i in 0 ..< sim.generatorsCount where cur + (defaultInset * Double(i)) == inset {
-        return "Generator №\(i + 1)"
-      }
-    default:
-      return ""
+      // Generators
+      case sim.generators[0].baseLine ..< sim.generators[0]
+      .baseLine + Double(sim.generatorsCount) * defaultInset:
+        let cur = sim.generators[0].baseLine
+        for i in 0 ..< sim.generatorsCount where cur + (defaultInset * Double(i)) == inset {
+          return "Generator №\(i + 1)"
+        }
+      default:
+        return ""
     }
     return ""
   }
@@ -123,8 +126,10 @@ struct WaveformView_Previews: PreviewProvider {
 
 extension LineMark {
   init(_ point: WaveformPoint, of actor: String) {
-    self.init(x: .value("x", point.x),
-              y: .value("y", point.y),
-              series: .value("Actor", actor))
+    self.init(
+      x: .value("x", point.x),
+      y: .value("y", point.y),
+      series: .value("Actor", actor)
+    )
   }
 }
