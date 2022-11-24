@@ -1,4 +1,4 @@
-whitelist_rules:
+only_rules:
  - closing_brace
  - colon
  - comma
@@ -11,11 +11,6 @@ whitelist_rules:
  - trailing_semicolon
  - trailing_whitespace
  - custom_rules
-
-disabled_rules:
-  - identifier_name
-  - large_tuple
-  - switch_case_alignment
 
 custom_rules:
   dictionary_colon:
