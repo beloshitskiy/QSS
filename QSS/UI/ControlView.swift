@@ -14,49 +14,49 @@ struct ControlView: View {
         }
 
         switch appState.appMode {
-        case .auto:
-          Button {
-            if !appState.isStarted {
-              appState.simulation.startAuto()
-              appState.isStarted = true
-            } else {
-              appState.simulation.reset()
-              appState.isStarted = false
-            }
-          } label: {
-            Text(!appState.isStarted ? "Start" : "Reset")
-          }.buttonStyle(.bordered)
-
-        case .manual:
-          HStack {
+          case .auto:
             Button {
               if !appState.isStarted {
-                withAnimation {
-                  appState.simulation.startManual()
-                  appState.isStarted = true
-                }
+                appState.simulation.startAuto()
+                appState.isStarted = true
               } else {
-                withAnimation {
-                  appState.simulation.reset()
-                  appState.isStarted = false
-                }
+                appState.simulation.reset()
+                appState.isStarted = false
               }
             } label: {
               Text(!appState.isStarted ? "Start" : "Reset")
             }.buttonStyle(.bordered)
 
-            Button {
-              withAnimation {
-                appState.simulation.performStep()
-                appState.kostyul.toggle()
-              }
-            } label: {
-              Text("Step")
-            }.disabled(!appState.isStarted)
-              .buttonStyle(.bordered)
-          }
+          case .manual:
+            HStack {
+              Button {
+                if !appState.isStarted {
+                  withAnimation {
+                    appState.simulation.startManual()
+                    appState.isStarted = true
+                  }
+                } else {
+                  withAnimation {
+                    appState.simulation.reset()
+                    appState.isStarted = false
+                  }
+                }
+              } label: {
+                Text(!appState.isStarted ? "Start" : "Reset")
+              }.buttonStyle(.bordered)
 
-        default: EmptyView()
+              Button {
+                withAnimation {
+                  appState.simulation.performStep()
+                  appState.kostyul.toggle()
+                }
+              } label: {
+                Text("Step")
+              }.disabled(!appState.isStarted)
+                .buttonStyle(.bordered)
+            }
+
+          default: EmptyView()
         }
       }
       .padding()

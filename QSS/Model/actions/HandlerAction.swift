@@ -5,8 +5,12 @@ final class HandlerAction: Action {
   private let generator: Generator
   private let performer: SimulationPerformer
 
-  init(_ timestamp: Double, _ handler: Handler,
-       _ generator: Generator, _ helper: SimulationPerformer) {
+  init(
+    _ timestamp: Double,
+    _ handler: Handler,
+    _ generator: Generator,
+    _ helper: SimulationPerformer
+  ) {
     self.timestamp = timestamp
     self.handler = handler
     self.generator = generator

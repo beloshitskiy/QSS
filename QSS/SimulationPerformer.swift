@@ -17,7 +17,7 @@ final class SimulationPerformer {
   private(set) var handlers: [Handler]
   private(set) var buffers: [Buffer]
   private(set) var rejector: Rejector
-  
+
   // current order priority
   var currentPriority: Int?
 
@@ -31,8 +31,13 @@ final class SimulationPerformer {
 
   // MARK: - Inits
 
-  init(generatorsCount: Int = 3, handlersCount: Int = 3, buffersCount: Int = 3,
-       baseLine: Double = 0.0, inset: Double = 1.5) {
+  init(
+    generatorsCount: Int = 3,
+    handlersCount: Int = 3,
+    buffersCount: Int = 3,
+    baseLine: Double = 0.0,
+    inset: Double = 1.5
+  ) {
     actions = PriorityQueue<Action>(ascending: true)
     ordersCount = 0
 
@@ -40,9 +45,11 @@ final class SimulationPerformer {
     self.handlersCount = handlersCount
     self.buffersCount = buffersCount
 
-    let actors = ActorsFactory.makeActors(generatorsCount: generatorsCount,
-                                          handlersCount: handlersCount,
-                                          buffersCount: buffersCount)
+    let actors = ActorsFactory.makeActors(
+      generatorsCount: generatorsCount,
+      handlersCount: handlersCount,
+      buffersCount: buffersCount
+    )
 
     generators = actors.generators
     handlers = actors.handlers
@@ -123,9 +130,11 @@ final class SimulationPerformer {
     handlers.removeAll()
     buffers.removeAll()
 
-    let actors = ActorsFactory.makeActors(generatorsCount: generatorsCount,
-                                          handlersCount: handlersCount,
-                                          buffersCount: buffersCount)
+    let actors = ActorsFactory.makeActors(
+      generatorsCount: generatorsCount,
+      handlersCount: handlersCount,
+      buffersCount: buffersCount
+    )
 
     generators = actors.generators
     handlers = actors.handlers

@@ -1,4 +1,4 @@
-class Action: Comparable {
+internal class Action: Comparable {
   private var value: Double
 
   init(value: Double) {
