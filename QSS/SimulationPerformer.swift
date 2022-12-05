@@ -24,6 +24,9 @@ final class SimulationPerformer {
   // statistics for TableView
   private(set) var simulationResult: SimulationResult
 
+  // statistics for exporting
+  private(set) var exportResults: [SimulationExportResult]
+
   // variables and constants for beautifying WaveformView
   private var baseLine: Double
   let inset: Double
@@ -60,6 +63,7 @@ final class SimulationPerformer {
     self.inset = inset
     step = 0.0
     simulationResult = SimulationResult(generatorResults: [], handlerResults: [])
+    exportResults = []
   }
 
   // MARK: - Start
@@ -75,6 +79,55 @@ final class SimulationPerformer {
 
     simulationResult = SimulationResultFactory.makeResult(step, generators, handlers)
     endGeneration()
+  }
+
+  func startExport() {
+    for numberOfDevices in 1 ... 10 {
+      for numberOfBuffers in 1 ... 10 {
+        for rangeNumber in 0 ..< 4 {
+          for lambda in stride(from: 0.01, through: 0.05, by: 0.01) {
+            startAutoWithParams(numberOfDevices, numberOfBuffers, rangeNumber, lambda)
+          }
+        }
+      }
+    }
+  }
+
+  private func startAutoWithParams(
+    _ numberOfDevices: Int,
+    _ numberOfBuffers: Int,
+    _ rangeNumber: Int,
+    _ lambda: Double
+  ) {
+    let ranges = [
+      0.03 ... 3.0,
+      0.02 ... 2.0,
+      0.015 ... 1.0,
+      0.01 ... 0.5,
+    ]
+
+    reset()
+    ordersCount = 100
+    handlersCount = numberOfDevices
+    buffersCount = numberOfBuffers
+    timeGenerationRange = ranges[rangeNumber]
+    fillWithActions()
+    guard !actions.isEmpty else { return }
+
+    while !actions.isEmpty {
+      performStep()
+    }
+
+    exportResults.append(SimulationExportResultFactory.makeResult(
+      numberOfDevices: numberOfDevices,
+      range: ranges[rangeNumber],
+      lambda: lambda,
+      numberOfBuffers: numberOfBuffers,
+      simulationResult: SimulationResultFactory.makeResult(step, generators, handlers),
+      configurationNumber: rangeNumber
+    ))
+
+    exportResults.export()
   }
 
   func startManual() {

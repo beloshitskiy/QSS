@@ -15,17 +15,19 @@ struct ControlView: View {
 
         switch appState.appMode {
           case .auto:
-            Button {
-              if !appState.isStarted {
-                appState.simulation.startAuto()
-                appState.isStarted = true
-              } else {
-                appState.simulation.reset()
-                appState.isStarted = false
-              }
-            } label: {
-              Text(!appState.isStarted ? "Start" : "Reset")
-            }.buttonStyle(.bordered)
+            HStack {
+              Button {
+                if !appState.isStarted {
+                  appState.simulation.startAuto()
+                  appState.isStarted = true
+                } else {
+                  appState.simulation.reset()
+                  appState.isStarted = false
+                }
+              } label: {
+                Text(!appState.isStarted ? "Start" : "Reset")
+              }.buttonStyle(.bordered)
+            }
 
           case .manual:
             HStack {
@@ -70,6 +72,13 @@ struct ControlView: View {
         Stepper(value: $appState.simulation.buffersCount, in: 1 ... 10, step: 1) {
           Text("Number of buffers: \(appState.simulation.buffersCount)")
         }
+      }
+      .padding()
+
+      Button {
+        appState.simulation.startExport()
+      } label: {
+        Text("Export to .csv")
       }
       .padding()
     }

@@ -1,9 +1,14 @@
 import Foundation
 
+public var timeGenerationRange = 0.2 ... 1
+
 // used for generating time with normal and logarithmic distribution
 extension Double {
-  static func generateTimeForAction(for actor: Actor) -> Double {
-    let num = Double.random(in: 0.2 ..< 1)
+  static func generateTimeForAction(
+    for actor: Actor,
+    in range: ClosedRange<Double> = timeGenerationRange
+  ) -> Double {
+    let num = Double.random(in: range)
     switch actor {
       case .generator: return num
       default: return -log(1 - num)

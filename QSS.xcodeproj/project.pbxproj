@@ -27,6 +27,8 @@
 		2D43852D2912FE5000267EB9 /* Double+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2D43852C2912FE5000267EB9 /* Double+Extensions.swift */; };
 		2D43853D2917E33F00267EB9 /* WaveformConvertible.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2D43853C2917E33F00267EB9 /* WaveformConvertible.swift */; };
 		2DAE5D73291AFFDB003A4417 /* WaveformView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2DAE5D72291AFFDB003A4417 /* WaveformView.swift */; };
+		2DB0B6A8293CFF9D00DAE795 /* SimulationExportResult.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2DB0B6A7293CFF9D00DAE795 /* SimulationExportResult.swift */; };
+		2DB0B6AB293D00EB00DAE795 /* SwiftCSVExport in Frameworks */ = {isa = PBXBuildFile; productRef = 2DB0B6AA293D00EB00DAE795 /* SwiftCSVExport */; };
 		2DBAA3C22920366B00CAFE89 /* ActorsFactory.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2DBAA3C12920366B00CAFE89 /* ActorsFactory.swift */; };
 		2DBAA3C52920E81200CAFE89 /* SimulationResult.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2DBAA3C42920E81200CAFE89 /* SimulationResult.swift */; };
 		2DD6E4E62907FE0300D1AF41 /* QSSApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2DD6E4E52907FE0300D1AF41 /* QSSApp.swift */; };
@@ -56,6 +58,7 @@
 		2D43852C2912FE5000267EB9 /* Double+Extensions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "Double+Extensions.swift"; sourceTree = "<group>"; };
 		2D43853C2917E33F00267EB9 /* WaveformConvertible.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WaveformConvertible.swift; sourceTree = "<group>"; };
 		2DAE5D72291AFFDB003A4417 /* WaveformView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WaveformView.swift; sourceTree = "<group>"; };
+		2DB0B6A7293CFF9D00DAE795 /* SimulationExportResult.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SimulationExportResult.swift; sourceTree = "<group>"; };
 		2DBAA3C12920366B00CAFE89 /* ActorsFactory.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ActorsFactory.swift; sourceTree = "<group>"; };
 		2DBAA3C42920E81200CAFE89 /* SimulationResult.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SimulationResult.swift; sourceTree = "<group>"; };
 		2DD6E4E22907FE0300D1AF41 /* QSS.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = QSS.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -71,6 +74,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				2DD6E5112909D66300D1AF41 /* SwiftPriorityQueue in Frameworks */,
+				2DB0B6AB293D00EB00DAE795 /* SwiftCSVExport in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -147,6 +151,7 @@
 				2DD6E4E52907FE0300D1AF41 /* QSSApp.swift */,
 				2D06CABD290BD92400B33482 /* AppState.swift */,
 				2D4385172912FDD700267EB9 /* SimulationPerformer.swift */,
+				2DB0B6A7293CFF9D00DAE795 /* SimulationExportResult.swift */,
 				2D4385192912FDEE00267EB9 /* Model */,
 				2D09AB69290BD20400B3C11E /* UI */,
 				2D43852C2912FE5000267EB9 /* Double+Extensions.swift */,
@@ -185,6 +190,7 @@
 			name = QSS;
 			packageProductDependencies = (
 				2DD6E5102909D66300D1AF41 /* SwiftPriorityQueue */,
+				2DB0B6AA293D00EB00DAE795 /* SwiftCSVExport */,
 			);
 			productName = QSS;
 			productReference = 2DD6E4E22907FE0300D1AF41 /* QSS.app */;
@@ -216,6 +222,7 @@
 			mainGroup = 2DD6E4D92907FE0300D1AF41;
 			packageReferences = (
 				2DD6E50F2909D66300D1AF41 /* XCRemoteSwiftPackageReference "SwiftPriorityQueue" */,
+				2DB0B6A9293D00EB00DAE795 /* XCRemoteSwiftPackageReference "SwiftCSVExport" */,
 			);
 			productRefGroup = 2DD6E4E32907FE0300D1AF41 /* Products */;
 			projectDirPath = "";
@@ -271,6 +278,7 @@
 				2D06CAC0290BDC0900B33482 /* Menus.swift in Sources */,
 				2DBAA3C52920E81200CAFE89 /* SimulationResult.swift in Sources */,
 				2D06CABA290BD59B00B33482 /* ContentView.swift in Sources */,
+				2DB0B6A8293CFF9D00DAE795 /* SimulationExportResult.swift in Sources */,
 				2D4385222912FE1D00267EB9 /* Action.swift in Sources */,
 				2DBAA3C22920366B00CAFE89 /* ActorsFactory.swift in Sources */,
 				2D43852A2912FE2200267EB9 /* Handler.swift in Sources */,
@@ -421,7 +429,7 @@
 				COMBINE_HIDPI_IMAGES = YES;
 				CURRENT_PROJECT_VERSION = 1;
 				DEAD_CODE_STRIPPING = YES;
-				/* DEVELOPMENT_ASSET_PATHS = "___PACKAGENAMEPREVIEWCONTENT:quoteIfNeeded___"; */
+				DEVELOPMENT_TEAM = 6LQ3YPWD94;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_KEY_LSApplicationCategoryType = "public.app-category.utilities";
@@ -451,7 +459,7 @@
 				COMBINE_HIDPI_IMAGES = YES;
 				CURRENT_PROJECT_VERSION = 1;
 				DEAD_CODE_STRIPPING = YES;
-				/* DEVELOPMENT_ASSET_PATHS = "___PACKAGENAMEPREVIEWCONTENT:quoteIfNeeded___"; */
+				DEVELOPMENT_TEAM = 6LQ3YPWD94;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_KEY_LSApplicationCategoryType = "public.app-category.utilities";
@@ -493,6 +501,14 @@
 /* End XCConfigurationList section */
 
 /* Begin XCRemoteSwiftPackageReference section */
+		2DB0B6A9293D00EB00DAE795 /* XCRemoteSwiftPackageReference "SwiftCSVExport" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/vigneshuvi/SwiftCSVExport";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 2.0.0;
+			};
+		};
 		2DD6E50F2909D66300D1AF41 /* XCRemoteSwiftPackageReference "SwiftPriorityQueue" */ = {
 			isa = XCRemoteSwiftPackageReference;
 			repositoryURL = "https://github.com/davecom/SwiftPriorityQueue";
@@ -504,6 +520,11 @@
 /* End XCRemoteSwiftPackageReference section */
 
 /* Begin XCSwiftPackageProductDependency section */
+		2DB0B6AA293D00EB00DAE795 /* SwiftCSVExport */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 2DB0B6A9293D00EB00DAE795 /* XCRemoteSwiftPackageReference "SwiftCSVExport" */;
+			productName = SwiftCSVExport;
+		};
 		2DD6E5102909D66300D1AF41 /* SwiftPriorityQueue */ = {
 			isa = XCSwiftPackageProductDependency;
 			package = 2DD6E50F2909D66300D1AF41 /* XCRemoteSwiftPackageReference "SwiftPriorityQueue" */;

@@ -1,6 +1,15 @@
 {
   "pins" : [
     {
+      "identity" : "swiftcsvexport",
+      "kind" : "remoteSourceControl",
+      "location" : "https://github.com/vigneshuvi/SwiftCSVExport",
+      "state" : {
+        "revision" : "fa7f2620eb0b109582e4b2b6ce3992358f4b299e",
+        "version" : "2.6.0"
+      }
+    },
+    {
       "identity" : "swiftpriorityqueue",
       "kind" : "remoteSourceControl",
       "location" : "https://github.com/davecom/SwiftPriorityQueue",
