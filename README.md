@@ -10,4 +10,12 @@
 
 Результат работы можно получить как в виде сводной таблицы результатов, так и временной диаграммы
 
-**Стек приложения**: Swift, SwiftUI, Swift Charts, SwiftLint
+## Скриншоты
+
+### Автоматический режим
+<img src="resources/qss_auto.png" width="700"/>
+
+### Ручной режим
+<img src="resources/qss_manual.png" width="700"/>
+
+**Стек приложения**: Swift, SwiftUI, Swift Charts
